@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>docker的安装</title>
+      <link href="/2023/01/18/docker/docker%E7%9A%84%E5%AE%89%E8%A3%85/"/>
+      <url>/2023/01/18/docker/docker%E7%9A%84%E5%AE%89%E8%A3%85/</url>
+      
+        <content type="html"><![CDATA[<h3 id="docker安装教程"><a href="#docker安装教程" class="headerlink" title="docker安装教程"></a>docker安装教程</h3><ul><li>第一步：安装一组工具</li></ul><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install -y yum-utils</span><br></pre></td></tr></table></figure><ul><li>第二步设置yum仓库地址</li></ul><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/dockerce.reposudo yum-config-manager --add-repo</span><br><span class="line"> http://mirrors.aliyun.com/dockerce/linux/centos/docker-ce.repo</span><br></pre></td></tr></table></figure><ul><li>第三步 更新yum缓存</li></ul><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum makecache fast #yum 是包管理器</span><br></pre></td></tr></table></figure><ul><li>第四步 安装新版docker</li></ul><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install -y docker-ce docker-ce-cli containerd.io</span><br></pre></td></tr></table></figure><ul><li>第5步 安装完成检测安装状态</li></ul><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">指令：</span><br><span class="line">docker info</span><br><span class="line">// 查看版本</span><br><span class="line">docker -v</span><br></pre></td></tr></table></figure><ul><li>第6步镜像加速</li></ul><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//加速地址</span><br><span class="line">https://ol7717dv.mirror.aliyuncs.com</span><br><span class="line">sudo mkdir -p /etc/docker</span><br><span class="line">sudo tee /etc/docker/daemon.json &lt;&lt;-&#x27;EOF&#x27;</span><br><span class="line">&#123;</span><br><span class="line">  &quot;registry-mirrors&quot;: [&quot;https://ol7717dv.mirror.aliyuncs.com&quot;]</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br><span class="line">sudo systemctl daemon-reload</span><br><span class="line">sudo systemctl restart docker</span><br></pre></td></tr></table></figure><p><img src="https://s2.loli.net/2023/01/07/yfw7vDAOUFiGruP.png" alt="image-20230107164859228"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 云计算 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 云计算,docker </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>泛型</title>
       <link href="/2023/01/17/java/%E6%B3%9B%E5%9E%8B/"/>
       <url>/2023/01/17/java/%E6%B3%9B%E5%9E%8B/</url>
