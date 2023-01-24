@@ -1,0 +1,501 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>MapReduce | 梦创空间</title><meta name="author" content="冰诺飞雪"><meta name="copyright" content="冰诺飞雪"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="一.Hadoop MapReduce1.1 理解Map Reduce思想 MapReduce的思想核心是“先分再合，分而治之”。  所谓“分而治之”就是把一个复杂的问题，按照一定的“分解”方法分为等价的规模较小的若干部分，然后逐个解 决，分别找出各部分的结果，然后把各部分的结果组成整个问题的最终结果。  这种思想来源于日常生活与工作时的经验。即使是发布过论文实现分布式计算的谷歌也只是实现了这种思想">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MapReduce">
+<meta property="og:url" content="http://example.com/posts/bc1fb66d.html">
+<meta property="og:site_name" content="梦创空间">
+<meta property="og:description" content="一.Hadoop MapReduce1.1 理解Map Reduce思想 MapReduce的思想核心是“先分再合，分而治之”。  所谓“分而治之”就是把一个复杂的问题，按照一定的“分解”方法分为等价的规模较小的若干部分，然后逐个解 决，分别找出各部分的结果，然后把各部分的结果组成整个问题的最终结果。  这种思想来源于日常生活与工作时的经验。即使是发布过论文实现分布式计算的谷歌也只是实现了这种思想">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2023/01/19/5JCU6MPaXuSsm1F.jpg">
+<meta property="article:published_time" content="2023-01-23T02:40:07.122Z">
+<meta property="article:modified_time" content="2023-01-23T01:47:22.472Z">
+<meta property="article:author" content="冰诺飞雪">
+<meta property="article:tag" content="MapReduce">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2023/01/19/5JCU6MPaXuSsm1F.jpg"><link rel="shortcut icon" href="/img/%E7%BD%91%E7%AB%99%E5%9B%BE%E6%A0%87.png"><link rel="canonical" href="http://example.com/posts/bc1fb66d.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'MapReduce',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-01-23 09:47:22'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = url => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      link.onload = () => resolve()
+      link.onerror = () => reject()
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.cbd.int/hexo-butterfly-clock-anzhiyu@1.1.6/lib/clock.min.css" /><link rel="stylesheet" href="https://npm.elemecdn.com/anzhiyu-blog@2.0.4/css/runtime/runtime.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/hexo-butterfly-wowjs/lib/animate.min.css" media="print" onload="this.media='screen'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2023/01/17/CO7oAY8ZBjmLEVF.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">34</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">17</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/comments/"><i class="fa-fw fas fa-envelope"></i><span> 留言板</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://s2.loli.net/2023/01/19/5JCU6MPaXuSsm1F.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="梦创空间"><img class="site-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2023/01/04/rifPh5OCMlABHLs.png"/></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/comments/"><i class="fa-fw fas fa-envelope"></i><span> 留言板</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">MapReduce</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-01-23T02:40:07.122Z" title="发表于 2023-01-23 10:40:07">2023-01-23</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-01-23T01:47:22.472Z" title="更新于 2023-01-23 09:47:22">2023-01-23</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>11分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="MapReduce"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="一-Hadoop-MapReduce"><a href="#一-Hadoop-MapReduce" class="headerlink" title="一.Hadoop MapReduce"></a>一.Hadoop MapReduce</h2><h3 id="1-1-理解Map-Reduce思想"><a href="#1-1-理解Map-Reduce思想" class="headerlink" title="1.1 理解Map Reduce思想"></a>1.1 理解Map Reduce思想</h3><ul>
+<li><p>MapReduce的思想核心是“先分再合，分而治之”。</p>
+</li>
+<li><p>所谓“分而治之”就是把一个复杂的问题，按照一定的“分解”方法分为等价的规模较小的若干部分，然后逐个解 决，分别找出各部分的结果，然后把各部分的结果组成整个问题的最终结果。</p>
+</li>
+<li><p>这种思想来源于日常生活与工作时的经验。即使是发布过论文实现分布式计算的谷歌也只是实现了这种思想，而不 是自己原创。</p>
+</li>
+<li><p>Map表示第一阶段，负责“拆分”：即把复杂的任务分解为若干个“简单的子任务”来并行处理。可以进行拆分的 前提是这些小任务可以并行计算，彼此间几乎没有依赖关系。 </p>
+</li>
+<li><p>Reduce表示第二阶段，负责“合并”：即对map阶段的结果进行全局汇总。</p>
+</li>
+<li><p>这两个阶段合起来正是MapReduce思想的体现。</p>
+</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2023/01/10/pGRFJhL4Ede76fu.png" alt="image-20230110104953917"></p>
+<ul>
+<li>一个比较形象的语言解释MapReduce<ul>
+<li>要数停车场中的所有停放车的总数量。 你数第一列，我数第二列…这就是Map阶段，人越多，能够同时数车的人就越多，速度就越快。 数完之后，聚到一起，把所有人的统计数加在一起。这就是Reduce合并汇总阶段。</li>
+</ul>
+</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2023/01/10/DxVsmrvyncG83zX.png" alt="image-20230110105246494"></p>
+<h3 id="1-2如何对付大数据处理常见"><a href="#1-2如何对付大数据处理常见" class="headerlink" title="1.2如何对付大数据处理常见"></a>1.2如何对付大数据处理常见</h3><ul>
+<li>对相互间不具有计算依赖关系的大数据计算任务，实现并行最自然的办法就是采取MapReduce分而治之的策略。</li>
+<li>首先Map阶段进行拆分，把大数据拆分成若干份小数据，多个程序同时并行计算产生中间结果；然后是Reduce聚 合阶段，通过程序对并行的结果进行最终的汇总计算，得出最终的结果。</li>
+<li>不可拆分的计算任务或相互间有依赖关系的数据无法进行并行计算</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2023/01/10/hXa3dki7MbOnFf8.png" alt="image-20230110120355470"></p>
+<h3 id="1-4-构建抽象编程模型"><a href="#1-4-构建抽象编程模型" class="headerlink" title="1.4 构建抽象编程模型"></a>1.4 构建抽象编程模型</h3><ul>
+<li><p>MapReduce借鉴了函数式语言中的思想，用Map和Reduce两个函数提供了高层的并行编程抽象模型。</p>
+<ul>
+<li>map: 对一组数据元素进行某种重复式的处理；</li>
+<li>reduce: 对Map的中间结果进行某种进一步的结果整理。</li>
+</ul>
+</li>
+<li><p>MapReduce中定义了如下的Map和Reduce两个抽象的编程接口，由用户去编程实现:</p>
+<ul>
+<li>map: (k1; v1) → (k2; v2) </li>
+<li>reduce: (k2; [v2]) → (k3; v3)</li>
+</ul>
+</li>
+<li><p>​	通过以上两个编程接口，大家可以看出MapReduce处理的数据类型是键值对。</p>
+</li>
+</ul>
+<h3 id="1-4-统一架构"><a href="#1-4-统一架构" class="headerlink" title="1.4 统一架构"></a>1.4 统一架构</h3><ul>
+<li>如何提供统一的计算框架，如果没有统一封装底层细节，那么程序员则需要考虑诸如数据存储、划分、分发、结果 收集、错误恢复等诸多细节；为此，MapReduce设计并提供了统一的计算框架，为程序员隐藏了绝大多数系统层 面的处理细节。 </li>
+<li>MapReduce最大的亮点在于通过抽象模型和计算框架把需要做什么(what need to do)与具体怎么做(how to  do)分开了，为程序员提供一个抽象和高层的编程接口和框架。</li>
+<li>程序员仅需要关心其应用层的具体计算问题，仅需编写少量的处理应用本身计算问题的业务程序代码</li>
+<li>至于如何具体完成这个并行计算任务所相关的诸多系统层细节被隐藏起来,交给计算框架去处理：从分布代码的执 行，到大到数千小到单个节点集群的自动调度使用。</li>
+</ul>
+<h3 id="1-5-分布式计算概念"><a href="#1-5-分布式计算概念" class="headerlink" title="1.5 分布式计算概念"></a>1.5 分布式计算概念</h3><ul>
+<li>分布式计算是一种计算方法，和集中式计算是相对的。</li>
+<li>随着计算技术的发展，有些应用需要非常巨大的计算能力才能完成，如果采用集中式计算，需要耗费相当长的时间 来完成。</li>
+<li>分布式计算将该应用分解成许多小的部分，分配给多台计算机进行处理。这样可以节约整体计算时间，大大提高计 算效率。</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2023/01/10/sMqNdI56r3fwUXL.png" alt="image-20230110123449590"></p>
+<h3 id="1-6-MapReduce-介绍"><a href="#1-6-MapReduce-介绍" class="headerlink" title="1.6 MapReduce 介绍"></a>1.6 MapReduce 介绍</h3><ul>
+<li>Hadoop MapReduce是一个分布式计算框架，用于轻松编写分布式应用程序，这些应用程序以可靠，容错的方式 并行处理大型硬件集群（数千个节点）上的大量数据（多TB数据集）。</li>
+<li>MapReduce是一种面向海量数据处理的一种指导思想，也是一种用于对大规模数据进行分布式计算的编程模型。</li>
+</ul>
+<h3 id="1-7-MapReduce-产生背景"><a href="#1-7-MapReduce-产生背景" class="headerlink" title="1.7 MapReduce 产生背景"></a>1.7 MapReduce 产生背景</h3><ul>
+<li>MapReduce最早由Google于2004年在一篇名为《MapReduce:Simplified Data Processingon Large Clusters 》的论文中提出。 </li>
+<li>论文中谷歌把分布式数据处理的过程拆分为Map和Reduce两个操作函数（受到函数式编程语言的启发），随后被 Apache Hadoop参考并作为开源版本提供支持，叫做Hadoop MapReduce。</li>
+<li>它的出现解决了人们在最初面临海量数据束手无策的问题，同时它还是易于使用和高度可扩展的，使得开发者无需 关系分布式系统底层的复杂性即可很容易的编写分布式数据处理程序，并在成千上万台普通的商用服务器中运行。</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2023/01/10/NpveTs4IZnc2J7X.png" alt="image-20230110123955561"></p>
+<h3 id="1-8-MapReduce的特点"><a href="#1-8-MapReduce的特点" class="headerlink" title="1.8 MapReduce的特点"></a>1.8 MapReduce的特点</h3><ul>
+<li>易于编程</li>
+</ul>
+<p>Mapreduce框架提供了用于二次开发的接口；简单地实现一些接口，就可以完成一个分布式程序。任务计算交给计算 框架去处理，将分布式程序部署到hadoop集群上运行，集群节点可以扩展到成百上千个等。</p>
+<ul>
+<li>良好的扩展性</li>
+</ul>
+<p>当计算机资源不能得到满足的时候，可以通过增加机器来扩展它的计算能力。基于MapReduce的分布式计算得特点可 以随节点数目增长保持近似于线性的增长，这个特点是MapReduce处理海量数据的关键，通过将计算节点增至几百或 者几千可以很容易地处理数百TB甚至PB级别的离线数据。</p>
+<ul>
+<li>高容错性</li>
+</ul>
+<p>Hadoop集群是分布式搭建和部署得，任何单一机器节点宕机了，它可以把上面的计算任务转移到另一个节点上运行， 不影响整个作业任务得完成，过程完全是由Hadoop内部完成的。</p>
+<ul>
+<li>适合海量数据的离线处理</li>
+</ul>
+<p>可以处理GB、TB和PB级别得数据量</p>
+<h3 id="1-9MapReduce-局限性"><a href="#1-9MapReduce-局限性" class="headerlink" title="1.9MapReduce 局限性"></a>1.9MapReduce 局限性</h3><p>​	MapReduce虽然有很多的优势，也有相对得局限性，局限性不代表不能做，而是在有些场景下实现的效果比较差，并 不适合用MapReduce来处理，主要表现在以下结果方面：</p>
+<ul>
+<li>实时计算性能差</li>
+</ul>
+<p>​	MapReduce主要应用于离线作业，无法作到秒级或者是亚秒级得数据响应。</p>
+<ul>
+<li>不能进行流式计算</li>
+</ul>
+<p>​	流式计算特点是数据是源源不断得计算，并且数据是动态的；而MapReduce作为一个离线计算框架，主要是针对静态 数据集得，数据是不能动态变化得。</p>
+<h3 id="2-0-MapReduce实例进程"><a href="#2-0-MapReduce实例进程" class="headerlink" title="2.0 MapReduce实例进程"></a>2.0 MapReduce实例进程</h3><p>一个完整的MapReduce程序在分布式运行时有三类</p>
+<ul>
+<li>MRAppMaster：负责整个MR程序的过程调度及状态协调</li>
+<li>MapTask：负责map阶段的整个数据处理流程</li>
+<li>ReduceTask：负责reduce阶段的整个数据处理流程</li>
+</ul>
+<h3 id="2-1-阶段组成"><a href="#2-1-阶段组成" class="headerlink" title="2.1 阶段组成"></a>2.1 阶段组成</h3><ul>
+<li>一个MapReduce编程模型中只能包含一个Map阶段和一个Reduce阶段，或者只有Map阶段；</li>
+<li>不能有诸如多个map阶段、多个reduce阶段的情景出现； </li>
+<li>如果用户的业务逻辑非常复杂，那就只能多个MapReduce程序串行运行。</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2023/01/10/sr8W4CMHNZRFI7J.png" alt="image-20230110125013189"></p>
+<h3 id="2-2-MapRedece数据类型"><a href="#2-2-MapRedece数据类型" class="headerlink" title="2.2 MapRedece数据类型"></a>2.2 MapRedece数据类型</h3><ul>
+<li>注意：整个MapReduce程序中，数据都是以kv键值对的形式流转的；</li>
+<li>在实际编程解决各种业务问题中，需要考虑每个阶段的输入输出kv分别是什么；</li>
+<li>MapReduce内置了很多默认属性，比如排序、分组等，都和数据的k有关，所以说kv的类型数据确定及其重要的</li>
+</ul>
+<h3 id="2-3-map阶段的执行过程"><a href="#2-3-map阶段的执行过程" class="headerlink" title="2.3 map阶段的执行过程"></a>2.3 map阶段的执行过程</h3><ul>
+<li>第一阶段：把输入目录下文件按照一定的标准逐个进行逻辑切片，形成切片规划。 默认Split size &#x3D; Block size（128M），每一个切片由一个MapTask处理。（getSplits）</li>
+<li>第二阶段：对切片中的数据按照一定的规则读取解析返回对。 默认是按行读取数据。key是每一行的起始位置偏移量，value是本行的文本内容。（TextInputFormat）</li>
+<li>第三阶段：调用Mapper类中的map方法处理数据。 每读取解析出来的一个 ，调用一次map方法。</li>
+<li>第四阶段：按照一定的规则对Map输出的键值对进行分区partition。默认不分区，因为只有一个reducetask。 分区的数量就是reducetask运行的数量。</li>
+<li>第五阶段：Map输出数据写入内存缓冲区，达到比例溢出到磁盘上。溢出spill的时候根据key进行排序sort。 默认根据key字典序排序。 </li>
+<li>第六阶段：对所有溢出文件进行最终的merge合并，成为一个文件。</li>
+</ul>
+<h3 id="2-4-reduce阶段的执行过程"><a href="#2-4-reduce阶段的执行过程" class="headerlink" title="2.4 reduce阶段的执行过程"></a>2.4 reduce阶段的执行过程</h3><ul>
+<li>第一阶段：ReduceTask会主动从MapTask复制拉取属于需要自己处理的数据。</li>
+<li>第二阶段：把拉取来数据，全部进行合并merge，即把分散的数据合并成一个大的数据。再对合并后的数据排序 。 </li>
+<li>第三阶段是对排序后的键值对调用reduce方法。键相等的键值对调用一次reduce方法。最后把这些输出的键值对 写入到HDFS文件中。</li>
+</ul>
+<h2 id="二-shffle概念"><a href="#二-shffle概念" class="headerlink" title="二 .shffle概念"></a>二 .shffle概念</h2><h3 id="1-1-shffle概念"><a href="#1-1-shffle概念" class="headerlink" title="1.1 shffle概念"></a>1.1 shffle概念</h3><ul>
+<li>Shuffle的本意是洗牌、混洗的意思，把一组有规则的数据尽量打乱成无规则的数据。</li>
+<li>而在MapReduce中，Shuffle更像是洗牌的逆过程，指的是将map端的无规则输出按指定的规则“打乱”成具有一 定规则的数据，以便reduce端接收处理。</li>
+<li>一般把从Map产生输出开始到Reduce取得数据作为输入之前的过程称作shuffle。</li>
+</ul>
+<h3 id="1-2-Map端Shuffle"><a href="#1-2-Map端Shuffle" class="headerlink" title="1.2 Map端Shuffle"></a>1.2 Map端Shuffle</h3><ul>
+<li>Collect阶段：将MapTask的结果收集输出到默认大小为100M的环形缓冲区，保存之前会对key进行分区的计算， 默认Hash分区。 </li>
+<li>Spill阶段：当内存中的数据量达到一定的阀值的时候，就会将数据写入本地磁盘，在将数据写入磁盘之前需要对数 据进行一次排序的操作，如果配置了combiner，还会将有相同分区号和key的数据进行排序。</li>
+<li>Merge阶段：把所有溢出的临时文件进行一次合并操作，以确保一个MapTask最终只产生一个中间数据文件。</li>
+</ul>
+<h3 id="1-3-Reducer端shuffle"><a href="#1-3-Reducer端shuffle" class="headerlink" title="1.3 Reducer端shuffle"></a>1.3 Reducer端shuffle</h3><ul>
+<li>Copy阶段： ReduceTask启动Fetcher线程到已经完成MapTask的节点上复制一份属于自己的数据。</li>
+<li>Merge阶段：在ReduceTask远程复制数据的同时，会在后台开启两个线程对内存到本地的数据文件进行合并操作 。 </li>
+<li>Sort阶段：在对数据进行合并的同时，会进行排序操作，由于MapTask阶段已经对数据进行了局部的排序， ReduceTask只需保证Copy的数据的最终整体有效性即可。</li>
+</ul>
+<h3 id="1-4-shuffle弊端"><a href="#1-4-shuffle弊端" class="headerlink" title="1.4 shuffle弊端"></a>1.4 shuffle弊端</h3><ul>
+<li>Shuffle是MapReduce程序的核心与精髓，是MapReduce的灵魂所在。 </li>
+<li>Shuffle也是MapReduce被诟病最多的地方所在。MapReduce相比较于Spark、Flink计算引擎慢的原因，跟 Shuffle机制有很大的关系。</li>
+<li>Shuffle中频繁涉及到数据在内存、磁盘之间的多次往复。</li>
+</ul>
+<h2 id="三-Hadoop-YARN介绍"><a href="#三-Hadoop-YARN介绍" class="headerlink" title="三.Hadoop YARN介绍"></a>三.Hadoop YARN介绍</h2><h3 id="1-1-YARN简介"><a href="#1-1-YARN简介" class="headerlink" title="1.1 YARN简介"></a>1.1 YARN简介</h3><ul>
+<li>Apache Hadoop YARN （Yet Another Resource Negotiator，另一种资源协调者）是一种新的Hadoop资源管 理器。</li>
+<li>YARN是一个通用资源管理系统和调度平台，可为上层应用提供统一的资源管理和调度。 </li>
+<li>它的引入为集群在利用率、资源统一管理和数据共享等方面带来了巨大好处。</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2023/01/10/PwjcanVFeWY7CDq.png" alt="image-20230110155522061"></p>
+<h3 id="1-2-YARN-功能"><a href="#1-2-YARN-功能" class="headerlink" title="1.2 YARN 功能"></a>1.2 YARN 功能</h3><ul>
+<li>资源管理系统：集群的硬件资源，和程序运行相关，比如内存、CPU等。</li>
+<li>调度平台：多个程序同时申请计算资源如何分配，调度的规则（算法）。</li>
+<li>通用：不仅仅支持MapReduce程序，理论上支持各种计算程序。YARN不关心你干什么，只关心你要资源，在有 的情况下给你，用完之后还我。</li>
+</ul>
+<h3 id="1-3-YARW概述"><a href="#1-3-YARW概述" class="headerlink" title="1.3 YARW概述"></a>1.3 YARW概述</h3><ul>
+<li>可以把Hadoop YARN理解为相当于一个分布式的操作系统平台，而MapReduce等计算程序则相当于运行于操作 系统之上的应用程序，YARN为这些程序提供运算所需的资源（内存、CPU等）。 </li>
+<li>Hadoop能有今天这个地位，YARN可以说是功不可没。因为有了YARN ，更多计算框架可以接入到 HDFS中，而 不单单是 MapReduce，正是因为YARN的包容，使得其他计算框架能专注于计算性能的提升。</li>
+<li>HDFS可能不是最优秀的大数据存储系统，但却是应用最广泛的大数据存储系统， YARN功不可没。</li>
+</ul>
+<h3 id="1-4-YARW3大组件"><a href="#1-4-YARW3大组件" class="headerlink" title="1.4 YARW3大组件"></a>1.4 YARW3大组件</h3><ul>
+<li>ResourceManager（RM）</li>
+</ul>
+<p>​	YARN集群中的主角色，决定系统中所有应用程序之间资源分配的最终权限，即最终仲裁者。 接收用户的作业提交，并通过NM分配、管理各个机器上的计算资源。</p>
+<ul>
+<li>NodeManager（NM）</li>
+</ul>
+<p>​	YARN中的从角色，一台机器上一个，负责管理本机器上的计算资源。 根据RM命令，启动Container容器、监视容器的资源使用情况。并且向RM主角色汇报资源使用情况。</p>
+<ul>
+<li>ApplicationMaster（AM）</li>
+</ul>
+<p>​	用户提交的每个应用程序均包含一个AM。 应用程序内的“老大”，负责程序内部各阶段的资源申请，监督程序的执行情况。</p>
+<h3 id="1-5-调度器策略"><a href="#1-5-调度器策略" class="headerlink" title="1.5 调度器策略"></a>1.5 调度器策略</h3><ul>
+<li>三种调度器 FIFO Scheduler（先进先出调度器）、Capacity Scheduler（容量调度器）、Fair Scheduler（公平调度器）。</li>
+<li>Apache版本YARN默认使用Capacity Scheduler。</li>
+<li>如果需要使用其他的调度器，可以在yarn-site.xml中的yarn.resourcemanager.scheduler.class进行配置。</li>
+</ul>
+<h3 id="1-6-FIFO-Scheduler概述"><a href="#1-6-FIFO-Scheduler概述" class="headerlink" title="1.6 FIFO Scheduler概述"></a>1.6 FIFO Scheduler概述</h3><ul>
+<li>FIFO Scheduler是Hadoop1.x中JobTracker原有的调度器实现，此调度器在YARN中保留了下来。 </li>
+<li>FIFO Scheduler是一个先进先出的思想，即先提交的应用先运行。调度工作不考虑优先级和范围，适用于负载较低 的小规模集群。当使用大型共享集群时，它的效率较低且会导致一些问题。 </li>
+<li>FIFO Scheduler拥有一个控制全局的队列queue，默认queue名称为default，该调度器会获取当前集群上所有的 资源信息作用于这个全局的queue。</li>
+</ul>
+<h4 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h4><ul>
+<li>优势： 无需配置、先到先得、易于执行</li>
+<li>坏处： 任务的优先级不会变高，因此高优先级的作业需要等待 不适合共享集群</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">冰诺飞雪</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/posts/bc1fb66d.html">http://example.com/posts/bc1fb66d.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">梦创空间</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/MapReduce/">MapReduce</a></div><div class="post_share"><div class="social-share" data-image="https://s2.loli.net/2023/01/19/5JCU6MPaXuSsm1F.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/1d59ffb2.html" title="数据仓库基本概念"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2023/01/19/E3RXMtnuaoFvL46.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">数据仓库基本概念</div></div></a></div><div class="next-post pull-right"><a href="/posts/70607de9.html" title="Hive搭建教程"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2023/01/19/ufPU9yzVNWDaG4n.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Hive搭建教程</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2023/01/17/CO7oAY8ZBjmLEVF.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">冰诺飞雪</div><div class="author-info__description">与其在风雨中逃避，不如在雷电中舞蹈，即便淋得透湿，也是领略生命的快意。</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">34</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">17</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://a.cwwwxl.top/" target="_blank" title="资料下载"><i class="fa-duotone fa-display-arrow-down"></i></a><a class="social-icon" href="https://www.bilibili.com/" target="_blank" title="哔哩哔哩"><i class="fa-brands fa-bilibili"></i></a><a class="social-icon" href="https://s2.loli.net/2023/01/18/cAbDLgiCnBRy5vU.jpg" target="_blank" title="QQ"><i class="fa-brands fa-qq"></i></a><a class="social-icon" href="https://s2.loli.net/2023/01/18/k7grqmBasCX1lwY.jpg" target="_blank" title="微信"><i class="fa-brands fa-weixin"></i></a><a class="social-icon" href="https://github.com/" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="/3475333681@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">在阅读中文章有问题,请与我联系或者评论,看见我会及时回复！！！</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80-Hadoop-MapReduce"><span class="toc-number">1.</span> <span class="toc-text">一.Hadoop MapReduce</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E7%90%86%E8%A7%A3Map-Reduce%E6%80%9D%E6%83%B3"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 理解Map Reduce思想</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2%E5%A6%82%E4%BD%95%E5%AF%B9%E4%BB%98%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E5%B8%B8%E8%A7%81"><span class="toc-number">1.2.</span> <span class="toc-text">1.2如何对付大数据处理常见</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-%E6%9E%84%E5%BB%BA%E6%8A%BD%E8%B1%A1%E7%BC%96%E7%A8%8B%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.3.</span> <span class="toc-text">1.4 构建抽象编程模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-%E7%BB%9F%E4%B8%80%E6%9E%B6%E6%9E%84"><span class="toc-number">1.4.</span> <span class="toc-text">1.4 统一架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-5-%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%A1%E7%AE%97%E6%A6%82%E5%BF%B5"><span class="toc-number">1.5.</span> <span class="toc-text">1.5 分布式计算概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-6-MapReduce-%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.6.</span> <span class="toc-text">1.6 MapReduce 介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-7-MapReduce-%E4%BA%A7%E7%94%9F%E8%83%8C%E6%99%AF"><span class="toc-number">1.7.</span> <span class="toc-text">1.7 MapReduce 产生背景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-8-MapReduce%E7%9A%84%E7%89%B9%E7%82%B9"><span class="toc-number">1.8.</span> <span class="toc-text">1.8 MapReduce的特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-9MapReduce-%E5%B1%80%E9%99%90%E6%80%A7"><span class="toc-number">1.9.</span> <span class="toc-text">1.9MapReduce 局限性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-0-MapReduce%E5%AE%9E%E4%BE%8B%E8%BF%9B%E7%A8%8B"><span class="toc-number">1.10.</span> <span class="toc-text">2.0 MapReduce实例进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E9%98%B6%E6%AE%B5%E7%BB%84%E6%88%90"><span class="toc-number">1.11.</span> <span class="toc-text">2.1 阶段组成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-MapRedece%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.12.</span> <span class="toc-text">2.2 MapRedece数据类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-map%E9%98%B6%E6%AE%B5%E7%9A%84%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B"><span class="toc-number">1.13.</span> <span class="toc-text">2.3 map阶段的执行过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-reduce%E9%98%B6%E6%AE%B5%E7%9A%84%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B"><span class="toc-number">1.14.</span> <span class="toc-text">2.4 reduce阶段的执行过程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C-shffle%E6%A6%82%E5%BF%B5"><span class="toc-number">2.</span> <span class="toc-text">二 .shffle概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-shffle%E6%A6%82%E5%BF%B5"><span class="toc-number">2.1.</span> <span class="toc-text">1.1 shffle概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-Map%E7%AB%AFShuffle"><span class="toc-number">2.2.</span> <span class="toc-text">1.2 Map端Shuffle</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-Reducer%E7%AB%AFshuffle"><span class="toc-number">2.3.</span> <span class="toc-text">1.3 Reducer端shuffle</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-shuffle%E5%BC%8A%E7%AB%AF"><span class="toc-number">2.4.</span> <span class="toc-text">1.4 shuffle弊端</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89-Hadoop-YARN%E4%BB%8B%E7%BB%8D"><span class="toc-number">3.</span> <span class="toc-text">三.Hadoop YARN介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-YARN%E7%AE%80%E4%BB%8B"><span class="toc-number">3.1.</span> <span class="toc-text">1.1 YARN简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-YARN-%E5%8A%9F%E8%83%BD"><span class="toc-number">3.2.</span> <span class="toc-text">1.2 YARN 功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-YARW%E6%A6%82%E8%BF%B0"><span class="toc-number">3.3.</span> <span class="toc-text">1.3 YARW概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-YARW3%E5%A4%A7%E7%BB%84%E4%BB%B6"><span class="toc-number">3.4.</span> <span class="toc-text">1.4 YARW3大组件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-5-%E8%B0%83%E5%BA%A6%E5%99%A8%E7%AD%96%E7%95%A5"><span class="toc-number">3.5.</span> <span class="toc-text">1.5 调度器策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-6-FIFO-Scheduler%E6%A6%82%E8%BF%B0"><span class="toc-number">3.6.</span> <span class="toc-text">1.6 FIFO Scheduler概述</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%98%E5%8A%BF"><span class="toc-number">3.6.1.</span> <span class="toc-text">优势</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/e0ed1ab3.html" title="6.用户管理"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2023/01/19/BfVcYHS6Uie4vEX.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="6.用户管理"/></a><div class="content"><a class="title" href="/posts/e0ed1ab3.html" title="6.用户管理">6.用户管理</a><time datetime="2023-01-23T02:40:07.155Z" title="发表于 2023-01-23 10:40:07">2023-01-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/f9356eaa.html" title="MySQL介绍与安装"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2023/01/19/BfVcYHS6Uie4vEX.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MySQL介绍与安装"/></a><div class="content"><a class="title" href="/posts/f9356eaa.html" title="MySQL介绍与安装">MySQL介绍与安装</a><time datetime="2023-01-23T02:40:07.152Z" title="发表于 2023-01-23 10:40:07">2023-01-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/d07c5d5a.html" title="建库建表的简单操作"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2023/01/19/3mivfJY4WUbC6Tj.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="建库建表的简单操作"/></a><div class="content"><a class="title" href="/posts/d07c5d5a.html" title="建库建表的简单操作">建库建表的简单操作</a><time datetime="2023-01-23T02:40:07.149Z" title="发表于 2023-01-23 10:40:07">2023-01-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/f1b10c2a.html" title="4.多表关系"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2023/01/04/H4gxkvMJ7tROZL9.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="4.多表关系"/></a><div class="content"><a class="title" href="/posts/f1b10c2a.html" title="4.多表关系">4.多表关系</a><time datetime="2023-01-23T02:40:07.146Z" title="发表于 2023-01-23 10:40:07">2023-01-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/24fbc361.html" title="select查询语句"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2023/01/04/xG2nKtYRwc1mUWk.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="select查询语句"/></a><div class="content"><a class="title" href="/posts/24fbc361.html" title="select查询语句">select查询语句</a><time datetime="2023-01-23T02:40:07.140Z" title="发表于 2023-01-23 10:40:07">2023-01-23</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://s2.loli.net/2023/01/19/5JCU6MPaXuSsm1F.jpg')"><div id="footer-wrap"><div class="footer_custom_text"><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn"><img class="icp-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.alicdn.com/tfs/TB1..50QpXXXXX7XpXXXXXXXXXX-40-40.png"><span>蜀ICP备2023000627号</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'aVFbTMLZu6sM51Bcw88ujXNp-gzGzoHsz',
+      appKey: 'gXsOKDMXjTibwD7gmPebJgNH',
+      avatar: 'monsterid',
+      serverURLs: 'https://avfbtmlz.lc-cn-n1-shared.com',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><div class="aplayer no-destroy" data-id="1708664797" data-server="tencent" data-type="playlist"   data-order="list" data-fixed="true" data-preload="auto" data-autoplay="false" data-mutex="true" ></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_clock_anzhiyu_injector_config(){
+    var parent_div_git = document.getElementsByClassName('sticky_layout')[0];
+    var item_html = '<div class="card-widget card-clock"><div class="card-glass"><div class="card-background"><div class="card-content"><div id="hexo_electric_clock"><img class="entered loading" id="card-clock-loading" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.cbd.int/hexo-butterfly-clock-anzhiyu@1.1.6/lib/loading.gif" style="height: 120px; width: 100%;" data-ll-status="loading"/></div></div></div></div></div>';
+    console.log('已挂载butterfly_clock_anzhiyu')
+    if(parent_div_git) {
+      parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var qweather_key = '98d3cea895764dc18c04083beea8d0b8# 和风天气key';
+  var gaud_map_key = 'e2b04289e870b005374ee030148d64fd&s=rsv3';
+  var baidu_ak_key = 'undefined';
+  var flag = 0;
+  var clock_rectangle = '112.6534116,27.96920845';
+  var clock_default_rectangle_enable = 'true';
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_clock_anzhiyu_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_clock_anzhiyu_injector_config();
+  }
+  </script><script src="https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0"></script><script data-pjax src="https://cdn.cbd.int/hexo-butterfly-clock-anzhiyu@1.1.6/lib/clock.min.js"></script><script data-pjax>
+  function butterfly_footer_beautify_injector_config(){
+    var parent_div_git = document.getElementById('footer-wrap');
+    var item_html = '<p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" data-title="博客框架为Hexo_v5.4.0" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&amp;logo=hexo" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" data-title="主题版本Butterfly_v4.2.2" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&amp;logo=bitdefender" alt=""/></a><a class="github-badge" target="_blank" href="https://www.jsdelivr.com/" style="margin-inline:5px" data-title="本站使用JsDelivr为静态资源提供CDN加速" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/CDN-jsDelivr-orange?style=flat&amp;logo=jsDelivr" alt=""/></a><a class="github-badge" target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" style="margin-inline:5px" data-title="本站已在川进行备案" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/蜀ICP备2023000627号-e1d492?style=flat&amp;logo=data:image/png;base64,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" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" data-title="本站项目由Github托管" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&amp;logo=GitHub" alt=""/></a><a class="github-badge" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" style="margin-inline:5px" data-title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&amp;logo=Claris" alt=""/></a></p>';
+    console.log('已挂载butterfly_footer_beautify')
+    parent_div_git.insertAdjacentHTML("beforeend",item_html)
+    }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_footer_beautify_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_footer_beautify_injector_config();
+  }
+  </script><div class="js-pjax"><script async="async">var arr = document.getElementsByClassName('recent-post-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '1.5s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-widget');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('flink-list-card');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__flipInY');
+    arr[i].setAttribute('data-wow-duration', '3s');
+    arr[i].setAttribute('data-wow-delay', '');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('flink-list-card');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__animated');
+    arr[i].setAttribute('data-wow-duration', '3s');
+    arr[i].setAttribute('data-wow-delay', '');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('article-sort-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__slideInRight');
+    arr[i].setAttribute('data-wow-duration', '1.5s');
+    arr[i].setAttribute('data-wow-delay', '');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-card');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__flipInY');
+    arr[i].setAttribute('data-wow-duration', '3s');
+    arr[i].setAttribute('data-wow-delay', '');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-card');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__animated');
+    arr[i].setAttribute('data-wow-duration', '3s');
+    arr[i].setAttribute('data-wow-delay', '');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script></div><script defer src="https://cdn.cbd.int/hexo-butterfly-wowjs/lib/wow.min.js"></script><script defer src="https://cdn.cbd.int/hexo-butterfly-wowjs/lib/wow_init.js"></script><!-- hexo injector body_end end --><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/"});</script></body></html>
