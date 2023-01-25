@@ -55,15 +55,15 @@ http://example.com/tags/%E4%BA%91%E8%AE%A1%E7%AE%97-docker/
 http://example.com/tags/git/
 http://example.com/tags/java/
 http://example.com/tags/jdk%E5%AE%89%E8%A3%85/
-http://example.com/tags/Linux/
 http://example.com/tags/ubuntu/
+http://example.com/tags/Linux/
 http://example.com/tags/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/
 http://example.com/tags/%E7%88%AC%E8%99%AB/
 http://example.com/tags/k8s/
 http://example.com/tags/openstack/
 http://example.com/tags/HDFS/
-http://example.com/tags/Hive/
 http://example.com/tags/Hadoop/
+http://example.com/tags/Hive/
 http://example.com/tags/MapReduce/
 http://example.com/tags/webase/
 http://example.com/tags/mysql/
