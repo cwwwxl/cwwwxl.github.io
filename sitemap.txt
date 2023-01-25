@@ -64,8 +64,8 @@ http://example.com/tags/openstack/
 http://example.com/tags/HDFS/
 http://example.com/tags/Hadoop/
 http://example.com/tags/Hive/
-http://example.com/tags/MapReduce/
 http://example.com/tags/webase/
+http://example.com/tags/MapReduce/
 http://example.com/tags/mysql/
 http://example.com/tags/nosql/
 http://example.com/categories/%E4%BA%91%E8%AE%A1%E7%AE%97/
