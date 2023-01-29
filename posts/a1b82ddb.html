@@ -1,0 +1,403 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>openstack一键安装脚本 | 梦创空间</title><meta name="author" content="冰诺飞雪"><meta name="copyright" content="冰诺飞雪"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="使用Packstack工具一键安装OpenStack1.环境规划   操作系统版本 硬件配置 IP地址规划 主机名 虚拟机软件 OpenStack版本    centos7.9 4vCPUS&#x2F;15G 30G硬盘 172.17.2.60&#x2F;24 openstack VMware WorkStation16 Stein   centos7.9镜像获取地址：http:&#x2F;&#x2F;mirrors">
+<meta property="og:type" content="article">
+<meta property="og:title" content="openstack一键安装脚本">
+<meta property="og:url" content="https://cwwwxl.top/posts/a1b82ddb.html">
+<meta property="og:site_name" content="梦创空间">
+<meta property="og:description" content="使用Packstack工具一键安装OpenStack1.环境规划   操作系统版本 硬件配置 IP地址规划 主机名 虚拟机软件 OpenStack版本    centos7.9 4vCPUS&#x2F;15G 30G硬盘 172.17.2.60&#x2F;24 openstack VMware WorkStation16 Stein   centos7.9镜像获取地址：http:&#x2F;&#x2F;mirrors">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2023/01/26/wC2hWmlKya5frI8.jpg">
+<meta property="article:published_time" content="2023-01-29T10:16:53.498Z">
+<meta property="article:modified_time" content="2023-01-29T10:27:37.165Z">
+<meta property="article:author" content="冰诺飞雪">
+<meta property="article:tag" content="openstack">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2023/01/26/wC2hWmlKya5frI8.jpg"><link rel="shortcut icon" href="https://s2.loli.net/2023/01/22/83ovLZMwTCuSUO6.jpg"><link rel="canonical" href="https://cwwwxl.top/posts/a1b82ddb.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'openstack一键安装脚本',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-01-29 18:27:37'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = url => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      link.onload = () => resolve()
+      link.onerror = () => reject()
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.cbd.int/hexo-butterfly-wowjs/lib/animate.min.css" media="print" onload="this.media='screen'"><link rel="stylesheet" href="https://cdn.cbd.int/hexo-butterfly-clock-anzhiyu@1.1.6/lib/clock.min.css" /><link rel="stylesheet" href="https://npm.elemecdn.com/anzhiyu-blog@2.0.4/css/runtime/runtime.min.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2023/01/17/CO7oAY8ZBjmLEVF.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">47</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">17</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://a.cwwwxl.top/"><i class="fa-fw fa-solid fa-cloud-arrow-down"></i><span> 资料下载区</span></a></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fas fa-envelope"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://s2.loli.net/2023/01/26/wC2hWmlKya5frI8.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="梦创空间"><img class="site-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2023/01/04/rifPh5OCMlABHLs.png"/></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://a.cwwwxl.top/"><i class="fa-fw fa-solid fa-cloud-arrow-down"></i><span> 资料下载区</span></a></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fas fa-envelope"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">openstack一键安装脚本</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-01-29T10:16:53.498Z" title="发表于 2023-01-29 18:16:53">2023-01-29</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-01-29T10:27:37.165Z" title="更新于 2023-01-29 18:27:37">2023-01-29</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%BA%91%E8%AE%A1%E7%AE%97/">云计算</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">831</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>3分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="openstack一键安装脚本"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="使用Packstack工具一键安装OpenStack"><a href="#使用Packstack工具一键安装OpenStack" class="headerlink" title="使用Packstack工具一键安装OpenStack"></a>使用Packstack工具一键安装OpenStack</h2><h2 id="1-环境规划"><a href="#1-环境规划" class="headerlink" title="1.环境规划"></a>1.环境规划</h2><table>
+<thead>
+<tr>
+<th><strong>操作系统版本</strong></th>
+<th><strong>硬件配置</strong></th>
+<th><strong>IP地址规划</strong></th>
+<th><strong>主机名</strong></th>
+<th><strong>虚拟机软件</strong></th>
+<th><strong>OpenStack版本</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>centos7.9</td>
+<td>4vCPUS&#x2F;15G 30G硬盘</td>
+<td>172.17.2.60&#x2F;24</td>
+<td>openstack</td>
+<td>VMware WorkStation16</td>
+<td>Stein</td>
+</tr>
+</tbody></table>
+<p>centos7.9镜像获取地址：<a target="_blank" rel="noopener" href="http://mirrors.aliyun.com/centos/7.9.2009/isos/x86_64/CentOS-7-x86_64-Minimal-2009.iso">http://mirrors.aliyun.com/centos/7.9.2009/isos/x86_64/CentOS-7-x86_64-Minimal-2009.iso</a></p>
+<h2 id="2-准备资料"><a href="#2-准备资料" class="headerlink" title="2.准备资料"></a>2.准备资料</h2><p>OpenStack官方文档：<a target="_blank" rel="noopener" href="https://docs.openstack.org/install-guide/">https://docs.openstack.org/install-guide/</a></p>
+<p>使用Packstack一键部署OpenStack的方式，隐藏了技术细节，如果使用中出来任何问题，我们都无法解决，所以体验完OpenStack的日常界面操作后，后期还是要仔细查看官方文档，然后一步步手工安装OpenStack各组件。</p>
+<p>阿里云yum源设置官方文档：<a target="_blank" rel="noopener" href="https://developer.aliyun.com/mirror/centos?spm=a2c6h.13651102.0.0.3e221b11Jpkdzb">https://developer.aliyun.com/mirror/centos?spm=a2c6h.13651102.0.0.3e221b11Jpkdzb</a></p>
+<h3 id="3-修改centos系统的主机名"><a href="#3-修改centos系统的主机名" class="headerlink" title="3.修改centos系统的主机名"></a>3.修改centos系统的主机名</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hostnamectl set-hostname openstack</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-设置centos系统为静态IP地址"><a href="#4-设置centos系统为静态IP地址" class="headerlink" title="4.设置centos系统为静态IP地址"></a>4.设置centos系统为静态IP地址</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">注意修改自己的网卡配置文件</span></span><br><span class="line">vi /etc/sysconfig/network-scripts/ifcfg-ens32</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">重启网络服务</span></span><br><span class="line">systemctl restart network</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">验证IP地址</span></span><br><span class="line">ip addr</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-添加主机hosts记录"><a href="#5-添加主机hosts记录" class="headerlink" title="5.添加主机hosts记录"></a>5.添加主机hosts记录</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;172.17.2.60 openstack&quot; &gt;&gt; /etc/hosts</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">验证修改结果</span></span><br><span class="line">more /etc/hosts</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-设置本机SSH免密码登录"><a href="#6-设置本机SSH免密码登录" class="headerlink" title="6.设置本机SSH免密码登录"></a>6.设置本机SSH免密码登录</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">生成ssh密钥</span></span><br><span class="line">ssh-keygen</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">添加密钥信息到~./ssh/know_hosts文件</span></span><br><span class="line">ssh-copy-id root@172.17.2.60</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-关闭防火墙"><a href="#7-关闭防火墙" class="headerlink" title="7.关闭防火墙"></a>7.关闭防火墙</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop firewalld</span><br><span class="line">systemctl disable firewalld</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">查看防火墙状态</span></span><br><span class="line">systemctl status firewalld</span><br></pre></td></tr></table></figure>
+
+<h3 id="8-关闭SeLinux"><a href="#8-关闭SeLinux" class="headerlink" title="8.关闭SeLinux"></a>8.关闭SeLinux</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">setenforce 0</span><br><span class="line">sed -i &#x27;s/SELINUX=enforcing/SELINUX=disabled/&#x27; /etc/selinux/config</span><br></pre></td></tr></table></figure>
+
+<h3 id="9-关闭NetworkManager服务"><a href="#9-关闭NetworkManager服务" class="headerlink" title="9.关闭NetworkManager服务"></a>9.关闭NetworkManager服务</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop NetworkManager</span><br><span class="line">systemctl disable NetworkManager</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">查看NetworkManager状态</span></span><br><span class="line">systemctl status NetworkManager</span><br></pre></td></tr></table></figure>
+
+<h3 id="10-修改官方yum源为阿里云yum源"><a href="#10-修改官方yum源为阿里云yum源" class="headerlink" title="10.修改官方yum源为阿里云yum源"></a>10.修改官方yum源为阿里云yum源</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl -o /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">重建本地yum索引缓存</span></span><br><span class="line">yum makecache</span><br></pre></td></tr></table></figure>
+
+<h3 id="11-系统升级"><a href="#11-系统升级" class="headerlink" title="11.系统升级"></a>11.系统升级</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">升级</span></span><br><span class="line">yum -y update</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">重启</span></span><br><span class="line">reboot</span><br></pre></td></tr></table></figure>
+
+<h2 id="12-安装常用的软件"><a href="#12-安装常用的软件" class="headerlink" title="12.安装常用的软件"></a>12.安装常用的软件</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install vim bash-completion yum-utils</span><br></pre></td></tr></table></figure>
+
+<h3 id="13-安装OpenStack-Stein的yum库"><a href="#13-安装OpenStack-Stein的yum库" class="headerlink" title="13.安装OpenStack Stein的yum库"></a>13.安装<code>OpenStack Stein</code>的<code>yum</code>库</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install centos-release-openstack-stein</span><br></pre></td></tr></table></figure>
+
+<h3 id="14-修改CentOS-OpenStack-stein-repo配置文件"><a href="#14-修改CentOS-OpenStack-stein-repo配置文件" class="headerlink" title="14.修改CentOS-OpenStack-stein.repo配置文件"></a>14.修改<code>CentOS-OpenStack-stein.repo</code>配置文件</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/yum.repos.d/</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">备份</span></span><br><span class="line">cp -a CentOS-OpenStack-stein.repo CentOS-OpenStack-stein.repo.bak</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">修改配置文件</span></span><br><span class="line">vim CentOS-OpenStack-stein.repo</span><br><span class="line">[centos-openstack-stein]</span><br><span class="line">baseurl=http://mirrors.aliyun.com/$contentdir/$releasever/cloud/$basearch/openstack-stein/</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">mirrorlist=http://mirrorlist.centos.org/?release=<span class="variable">$releasever</span>&amp;<span class="built_in">arch</span>=<span class="variable">$basearch</span>&amp;repo=cloud-openstack-stein</span></span><br><span class="line">...</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">清除本地yum索引缓存，然后再重建索引缓存</span></span><br><span class="line">yum clean all &amp;&amp; yum makecache</span><br></pre></td></tr></table></figure>
+
+<h3 id="15-安装packstack工具"><a href="#15-安装packstack工具" class="headerlink" title="15.安装packstack工具"></a>15.安装packstack工具</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install openstack-packstack</span><br></pre></td></tr></table></figure>
+
+<h3 id="16-安装OpenStack-allinone"><a href="#16-安装OpenStack-allinone" class="headerlink" title="16.安装OpenStack allinone"></a>16.安装OpenStack allinone</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">packstack --allinone</span><br></pre></td></tr></table></figure>
+
+<p>自动化安装时间很长，静静等待，直到出现如下信息，表示成功安装。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">**** Installation completed successfully ******</span><br><span class="line"></span><br><span class="line">Additional information:</span><br><span class="line"> * Parameter CONFIG_NEUTRON_L2_AGENT: You have choosen OVN neutron backend. Note that this backend does not support LBaaS, VPNaaS or FWaaS services. Geneve will be used as encapsulation method for tenant networks</span><br><span class="line"> * A new answerfile was created in: /root/packstack-answers-20220222-171022.txt</span><br><span class="line"> * Time synchronization installation was skipped. Please note that unsynchronized time on server instances might be problem for some OpenStack components.</span><br><span class="line"> * File /root/keystonerc_admin has been created on OpenStack client host 172.17.2.60. To use the command line tools you need to source the file.</span><br><span class="line"> * To access the OpenStack Dashboard browse to http://172.17.2.60/dashboard .</span><br><span class="line">Please, find your login credentials stored in the keystonerc_admin in your home directory.</span><br><span class="line"> * The installation log file is available at: /var/tmp/packstack/20220222-171021-YFXtB3/openstack-setup.log</span><br><span class="line"> * The generated manifests are available at: /var/tmp/packstack/20220222-171021-YFXtB3/manifests</span><br></pre></td></tr></table></figure>
+
+<h3 id="17-查看Dashboard-web页面的登录账号及密码"><a href="#17-查看Dashboard-web页面的登录账号及密码" class="headerlink" title="17 .查看Dashboard web页面的登录账号及密码"></a>17 .查看Dashboard web页面的登录账号及密码</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">cat keystonerc_admin </span><br><span class="line">unset OS_SERVICE_TOKEN</span><br><span class="line">    export OS_USERNAME=admin		#Dashboard登录账号</span><br><span class="line">    export OS_PASSWORD=&#x27;12b2ca7e963242ae&#x27;	#Dashboard登录密码</span><br><span class="line">    export OS_REGION_NAME=RegionOne</span><br><span class="line">    export OS_AUTH_URL=http://172.17.2.60:5000/v3</span><br><span class="line">    export PS1=&#x27;[\u@\h \W(keystone_admin)]\$ &#x27;</span><br><span class="line">    </span><br><span class="line">export OS_PROJECT_NAME=admin</span><br><span class="line">export OS_USER_DOMAIN_NAME=Default</span><br><span class="line">export OS_PROJECT_DOMAIN_NAME=Default</span><br><span class="line">export OS_IDENTITY_API_VERSION=3</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="18-修改密码"><a href="#18-修改密码" class="headerlink" title="18.修改密码"></a>18.修改密码</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vim keystonerc_admin</span><br><span class="line">export OS_PASSWORD=&#x27;admin&#x27;	#填入修改后的新密码</span><br></pre></td></tr></table></figure>
+
+<h3 id="19-本人亲测没有问题"><a href="#19-本人亲测没有问题" class="headerlink" title="19.本人亲测没有问题"></a>19.本人亲测没有问题</h3><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2023/01/29/ys49ZU6JiKDtSvl.png" alt="image-20230129181318202"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://cwwwxl.top">冰诺飞雪</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://cwwwxl.top/posts/a1b82ddb.html">https://cwwwxl.top/posts/a1b82ddb.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://cwwwxl.top" target="_blank">梦创空间</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/openstack/">openstack</a></div><div class="post_share"><div class="social-share" data-image="https://s2.loli.net/2023/01/26/wC2hWmlKya5frI8.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/posts/f612fab2.html" title="openstack服务相关命令"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2023/01/26/28KtaLZVC5Nkpue.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">openstack服务相关命令</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/d8a1ddad.html" title="httpd解决方案"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2023/01/26/uPStV1NECwacO6s.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-27</div><div class="title">httpd解决方案</div></div></a></div><div><a href="/posts/f612fab2.html" title="openstack服务相关命令"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2023/01/26/28KtaLZVC5Nkpue.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-27</div><div class="title">openstack服务相关命令</div></div></a></div><div><a href="/posts/d0acfaca.html" title="openstack搭建"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2023/01/19/Oh5pCc1jbIdygE6.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-23</div><div class="title">openstack搭建</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2023/01/17/CO7oAY8ZBjmLEVF.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">冰诺飞雪</div><div class="author-info__description">与其在风雨中逃避，不如在雷电中舞蹈，即便淋得透湿，也是领略生命的快意。</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">47</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">17</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://a.cwwwxl.top/" target="_blank" title="资料下载"><i class="fa-duotone fa-display-arrow-down"></i></a><a class="social-icon" href="https://www.bilibili.com/" target="_blank" title="哔哩哔哩"><i class="fa-brands fa-bilibili"></i></a><a class="social-icon" href="https://s2.loli.net/2023/01/18/k7grqmBasCX1lwY.jpg" target="_blank" title="QQ"><i class="fa-brands fa-qq"></i></a><a class="social-icon" href="https://s2.loli.net/2023/01/18/cAbDLgiCnBRy5vU.jpg" target="_blank" title="微信"><i class="fa-brands fa-weixin"></i></a><a class="social-icon" href="https://github.com/" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="/3475333681@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content"><center><b>--- 主域名 ---<br><a target="_blank" rel="noopener" href="https://www.cwwwxl.top" title="" class="anno_content"><font color="#5ea6e5">cwwwxl.top</font></a>&nbsp;|&nbsp;<a href="https://cwwwxl.top" title="此线路部署于Vercel" class="anno_content"><font color="#5ea6e5">cwwwxl.top</font></a><br>--- 备用域名 ---<br><a target="_blank" rel="noopener" href="https://cwwwxl.github.io" title="此线路部署于Netlify" class="anno_content"><font color="#5ea6e5">cwwwxl.github.io</font></a><br><a target="_blank" rel="noopener" href="https://blog.cwwwxl.top" title="此线路部署于Cloudflare" class="anno_content">blog.cwwwwxl<font color="#5ea6e5"></font></a><br><a href="#" title="此线路部署于Railway" class="anno_content"><font color="#5ea6e5">d.cwwwxl.top</font></a></center></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8Packstack%E5%B7%A5%E5%85%B7%E4%B8%80%E9%94%AE%E5%AE%89%E8%A3%85OpenStack"><span class="toc-number">1.</span> <span class="toc-text">使用Packstack工具一键安装OpenStack</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E7%8E%AF%E5%A2%83%E8%A7%84%E5%88%92"><span class="toc-number">2.</span> <span class="toc-text">1.环境规划</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%87%86%E5%A4%87%E8%B5%84%E6%96%99"><span class="toc-number">3.</span> <span class="toc-text">2.准备资料</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E4%BF%AE%E6%94%B9centos%E7%B3%BB%E7%BB%9F%E7%9A%84%E4%B8%BB%E6%9C%BA%E5%90%8D"><span class="toc-number">3.1.</span> <span class="toc-text">3.修改centos系统的主机名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%AE%BE%E7%BD%AEcentos%E7%B3%BB%E7%BB%9F%E4%B8%BA%E9%9D%99%E6%80%81IP%E5%9C%B0%E5%9D%80"><span class="toc-number">3.2.</span> <span class="toc-text">4.设置centos系统为静态IP地址</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E6%B7%BB%E5%8A%A0%E4%B8%BB%E6%9C%BAhosts%E8%AE%B0%E5%BD%95"><span class="toc-number">4.</span> <span class="toc-text">5.添加主机hosts记录</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E8%AE%BE%E7%BD%AE%E6%9C%AC%E6%9C%BASSH%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95"><span class="toc-number">4.1.</span> <span class="toc-text">6.设置本机SSH免密码登录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E5%85%B3%E9%97%AD%E9%98%B2%E7%81%AB%E5%A2%99"><span class="toc-number">4.2.</span> <span class="toc-text">7.关闭防火墙</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E5%85%B3%E9%97%ADSeLinux"><span class="toc-number">4.3.</span> <span class="toc-text">8.关闭SeLinux</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-%E5%85%B3%E9%97%ADNetworkManager%E6%9C%8D%E5%8A%A1"><span class="toc-number">4.4.</span> <span class="toc-text">9.关闭NetworkManager服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-%E4%BF%AE%E6%94%B9%E5%AE%98%E6%96%B9yum%E6%BA%90%E4%B8%BA%E9%98%BF%E9%87%8C%E4%BA%91yum%E6%BA%90"><span class="toc-number">4.5.</span> <span class="toc-text">10.修改官方yum源为阿里云yum源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-%E7%B3%BB%E7%BB%9F%E5%8D%87%E7%BA%A7"><span class="toc-number">4.6.</span> <span class="toc-text">11.系统升级</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12-%E5%AE%89%E8%A3%85%E5%B8%B8%E7%94%A8%E7%9A%84%E8%BD%AF%E4%BB%B6"><span class="toc-number">5.</span> <span class="toc-text">12.安装常用的软件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#13-%E5%AE%89%E8%A3%85OpenStack-Stein%E7%9A%84yum%E5%BA%93"><span class="toc-number">5.1.</span> <span class="toc-text">13.安装OpenStack Stein的yum库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#14-%E4%BF%AE%E6%94%B9CentOS-OpenStack-stein-repo%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">5.2.</span> <span class="toc-text">14.修改CentOS-OpenStack-stein.repo配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#15-%E5%AE%89%E8%A3%85packstack%E5%B7%A5%E5%85%B7"><span class="toc-number">5.3.</span> <span class="toc-text">15.安装packstack工具</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#16-%E5%AE%89%E8%A3%85OpenStack-allinone"><span class="toc-number">5.4.</span> <span class="toc-text">16.安装OpenStack allinone</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#17-%E6%9F%A5%E7%9C%8BDashboard-web%E9%A1%B5%E9%9D%A2%E7%9A%84%E7%99%BB%E5%BD%95%E8%B4%A6%E5%8F%B7%E5%8F%8A%E5%AF%86%E7%A0%81"><span class="toc-number">5.5.</span> <span class="toc-text">17 .查看Dashboard web页面的登录账号及密码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#18-%E4%BF%AE%E6%94%B9%E5%AF%86%E7%A0%81"><span class="toc-number">5.6.</span> <span class="toc-text">18.修改密码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#19-%E6%9C%AC%E4%BA%BA%E4%BA%B2%E6%B5%8B%E6%B2%A1%E6%9C%89%E9%97%AE%E9%A2%98"><span class="toc-number">5.7.</span> <span class="toc-text">19.本人亲测没有问题</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/a1b82ddb.html" title="openstack一键安装脚本"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2023/01/26/wC2hWmlKya5frI8.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="openstack一键安装脚本"/></a><div class="content"><a class="title" href="/posts/a1b82ddb.html" title="openstack一键安装脚本">openstack一键安装脚本</a><time datetime="2023-01-29T10:16:53.498Z" title="发表于 2023-01-29 18:16:53">2023-01-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/f612fab2.html" title="openstack服务相关命令"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2023/01/26/28KtaLZVC5Nkpue.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="openstack服务相关命令"/></a><div class="content"><a class="title" href="/posts/f612fab2.html" title="openstack服务相关命令">openstack服务相关命令</a><time datetime="2023-01-27T13:12:09.008Z" title="发表于 2023-01-27 21:12:09">2023-01-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/d8a1ddad.html" title="httpd解决方案"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2023/01/26/uPStV1NECwacO6s.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="httpd解决方案"/></a><div class="content"><a class="title" href="/posts/d8a1ddad.html" title="httpd解决方案">httpd解决方案</a><time datetime="2023-01-27T13:07:55.476Z" title="发表于 2023-01-27 21:07:55">2023-01-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/7f72d94.html" title="centos配置网卡"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2023/01/26/8LdsQPwqIVamYfH.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="centos配置网卡"/></a><div class="content"><a class="title" href="/posts/7f72d94.html" title="centos配置网卡">centos配置网卡</a><time datetime="2023-01-27T06:16:40.673Z" title="发表于 2023-01-27 14:16:40">2023-01-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/3f315f69.html" title="文件和权限"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s2.loli.net/2023/01/22/aGcyWoTErqIj1ts.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="文件和权限"/></a><div class="content"><a class="title" href="/posts/3f315f69.html" title="文件和权限">文件和权限</a><time datetime="2023-01-25T03:03:38.211Z" title="发表于 2023-01-25 11:03:38">2023-01-25</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://s2.loli.net/2023/01/26/wC2hWmlKya5frI8.jpg')"><div id="footer-wrap"><div class="footer_custom_text"><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn"><img class="icp-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.alicdn.com/tfs/TB1..50QpXXXXX7XpXXXXXXXXXX-40-40.png"><span>蜀ICP备2023000627号</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script><script>(()=>{
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://twikoo.cwwwxl.top/',
+      region: '',
+      onCommentLoaded: function () {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+  }
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo.cwwwxl.top/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      countELement.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const runFn = () => {
+    init()
+    GLOBAL_CONFIG_SITE.isPost && getCount()
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') {
+      setTimeout(runFn,0)
+      return
+    } 
+    getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(runFn)
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script>var meting_api = 'https://api.injahow.cn/meting/?server=:server&type=:type&id=:id&auth=:auth&r=:r';</script><div class="aplayer no-destroy" data-id="1708664797" data-server="tencent" data-type="playlist" data-order="list" data-fixed="true" data-preload="auto" data-autoplay="false" data-mutex="true" ></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --><div class="js-pjax"><script async="async">var arr = document.getElementsByClassName('recent-post-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '1.5s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-widget');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('flink-list-card');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__flipInY');
+    arr[i].setAttribute('data-wow-duration', '3s');
+    arr[i].setAttribute('data-wow-delay', '');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('flink-list-card');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__animated');
+    arr[i].setAttribute('data-wow-duration', '3s');
+    arr[i].setAttribute('data-wow-delay', '');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('article-sort-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__slideInRight');
+    arr[i].setAttribute('data-wow-duration', '1.5s');
+    arr[i].setAttribute('data-wow-delay', '');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-card');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__flipInY');
+    arr[i].setAttribute('data-wow-duration', '3s');
+    arr[i].setAttribute('data-wow-delay', '');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-card');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__animated');
+    arr[i].setAttribute('data-wow-duration', '3s');
+    arr[i].setAttribute('data-wow-delay', '');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script></div><script defer src="https://cdn.cbd.int/hexo-butterfly-wowjs/lib/wow.min.js"></script><script defer src="https://cdn.cbd.int/hexo-butterfly-wowjs/lib/wow_init.js"></script><script data-pjax>
+  function butterfly_clock_anzhiyu_injector_config(){
+    var parent_div_git = document.getElementsByClassName('sticky_layout')[0];
+    var item_html = '<div class="card-widget card-clock"><div class="card-glass"><div class="card-background"><div class="card-content"><div id="hexo_electric_clock"><img class="entered loading" id="card-clock-loading" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.cbd.int/hexo-butterfly-clock-anzhiyu@1.1.6/lib/loading.gif" style="height: 120px; width: 100%;" data-ll-status="loading"/></div></div></div></div></div>';
+    console.log('已挂载butterfly_clock_anzhiyu')
+    if(parent_div_git) {
+      parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var qweather_key = '98d3cea895764dc18c04083beea8d0b8# 和风天气key';
+  var gaud_map_key = 'e2b04289e870b005374ee030148d64fd&s=rsv3';
+  var baidu_ak_key = 'undefined';
+  var flag = 0;
+  var clock_rectangle = '112.6534116,27.96920845';
+  var clock_default_rectangle_enable = 'true';
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_clock_anzhiyu_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_clock_anzhiyu_injector_config();
+  }
+  </script><script src="https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0"></script><script data-pjax src="https://cdn.cbd.int/hexo-butterfly-clock-anzhiyu@1.1.6/lib/clock.min.js"></script><script data-pjax>
+  function butterfly_footer_beautify_injector_config(){
+    var parent_div_git = document.getElementById('footer-wrap');
+    var item_html = '<p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" data-title="博客框架为Hexo_v5.4.0" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&amp;logo=hexo" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" data-title="主题版本Butterfly_v4.2.2" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&amp;logo=bitdefender" alt=""/></a><a class="github-badge" target="_blank" href="https://www.jsdelivr.com/" style="margin-inline:5px" data-title="本站使用JsDelivr为静态资源提供CDN加速" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/CDN-jsDelivr-orange?style=flat&amp;logo=jsDelivr" alt=""/></a><a class="github-badge" target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" style="margin-inline:5px" data-title="本站已在川进行备案" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/蜀ICP备2023000627号-e1d492?style=flat&amp;logo=data:image/png;base64,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" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" data-title="本站项目由Github托管" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&amp;logo=GitHub" alt=""/></a><a class="github-badge" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" style="margin-inline:5px" data-title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&amp;logo=Claris" alt=""/></a></p>';
+    console.log('已挂载butterfly_footer_beautify')
+    parent_div_git.insertAdjacentHTML("beforeend",item_html)
+    }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_footer_beautify_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_footer_beautify_injector_config();
+  }
+  </script><!-- hexo injector body_end end --><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/"});</script></body></html>
