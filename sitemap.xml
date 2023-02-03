@@ -2,6 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://cwwwxl.top/posts/6e669434.html</loc>
+    
+    <lastmod>2023-02-03</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://cwwwxl.top/posts/9807228d.html</loc>
+    
+    <lastmod>2023-02-03</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://cwwwxl.top/posts/f9356eaa.html</loc>
     
     <lastmod>2023-01-30</lastmod>
@@ -21,15 +39,6 @@
   
   <url>
     <loc>https://cwwwxl.top/posts/f379794e.html</loc>
-    
-    <lastmod>2023-01-30</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://cwwwxl.top/posts/9807228d.html</loc>
     
     <lastmod>2023-01-30</lastmod>
     
@@ -192,15 +201,6 @@
   
   <url>
     <loc>https://cwwwxl.top/posts/df6f0f7b.html</loc>
-    
-    <lastmod>2023-01-26</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://cwwwxl.top/posts/9807228d.html</loc>
     
     <lastmod>2023-01-26</lastmod>
     
@@ -522,13 +522,6 @@
   </url>
   
   <url>
-    <loc>https://cwwwxl.top/tags/git/</loc>
-    <lastmod>2023-02-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://cwwwxl.top/tags/java/</loc>
     <lastmod>2023-02-03</lastmod>
     <changefreq>weekly</changefreq>
@@ -537,6 +530,13 @@
   
   <url>
     <loc>https://cwwwxl.top/tags/jdk%E5%AE%89%E8%A3%85/</loc>
+    <lastmod>2023-02-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://cwwwxl.top/tags/git/</loc>
     <lastmod>2023-02-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -585,6 +585,13 @@
   </url>
   
   <url>
+    <loc>https://cwwwxl.top/tags/webase/</loc>
+    <lastmod>2023-02-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://cwwwxl.top/tags/HDFS/</loc>
     <lastmod>2023-02-03</lastmod>
     <changefreq>weekly</changefreq>
@@ -607,13 +614,6 @@
   
   <url>
     <loc>https://cwwwxl.top/tags/MapReduce/</loc>
-    <lastmod>2023-02-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://cwwwxl.top/tags/webase/</loc>
     <lastmod>2023-02-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -643,14 +643,14 @@
   </url>
   
   <url>
-    <loc>https://cwwwxl.top/categories/git/</loc>
+    <loc>https://cwwwxl.top/categories/Java/</loc>
     <lastmod>2023-02-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://cwwwxl.top/categories/Java/</loc>
+    <loc>https://cwwwxl.top/categories/git/</loc>
     <lastmod>2023-02-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -671,14 +671,14 @@
   </url>
   
   <url>
-    <loc>https://cwwwxl.top/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/</loc>
+    <loc>https://cwwwxl.top/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/</loc>
     <lastmod>2023-02-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://cwwwxl.top/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/</loc>
+    <loc>https://cwwwxl.top/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/</loc>
     <lastmod>2023-02-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
