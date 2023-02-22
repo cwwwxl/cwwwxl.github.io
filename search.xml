@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>docker介绍</title>
+      <link href="/posts/7cb82351.html"/>
+      <url>/posts/7cb82351.html</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h3 id="1-1-Docker-简介"><a href="#1-1-Docker-简介" class="headerlink" title="1.1 Docker 简介"></a>1.1 Docker 简介</h3><p>​Docker 是一个开源的应用容器引擎，基于 <a href="https://www.runoob.com/go/go-tutorial.html">Go 语言</a> 并遵从 Apache2.0 协议开源。</p><p>Docker 可以让开发者打包他们的应用以及依赖包到一个轻量级、可移植的容器中，然后发布到任何流行的 Linux 机器上，也可以实现虚拟化。</p><p>容器是完全使用沙箱机制，相互之间不会有任何接口（类似 iPhone 的 app）,更重要的是容器性能开销极低。</p><h3 id="1-2-docker应用场景"><a href="#1-2-docker应用场景" class="headerlink" title="1.2 docker应用场景"></a>1.2 docker应用场景</h3><ul><li>Web 应用的自动化打包和发布。</li><li>自动化测试和持续集成、发布。</li><li>在服务型环境中部署和调整数据库或其他的后台应用。</li><li>从头编译或者扩展现有的 OpenShift 或 Cloud Foundry 平台来搭建自己的 PaaS 环境。</li></ul><h3 id="1-3-docker-的优点"><a href="#1-3-docker-的优点" class="headerlink" title="1.3 docker 的优点"></a>1.3 docker 的优点</h3><p>​Docker 是一个用于开发，交付和运行应用程序的开放平台。Docker 使您能够将应用程序与基础架构分开，从而可以快速交付软件。借助 Docker，您可以与管理应用程序相同的方式来管理基础架构。通过利用 Docker 的方法来快速交付，测试和部署代码，您可以大大减少编写代码和在生产环境中运行代码之间的延迟。</p><h4 id="1、快速，一致地交付您的应用程序"><a href="#1、快速，一致地交付您的应用程序" class="headerlink" title="1、快速，一致地交付您的应用程序"></a>1、快速，一致地交付您的应用程序</h4><p>​Docker 允许开发人员使用您提供的应用程序或服务的本地容器在标准化环境中工作，从而简化了开发的生命周期。</p><p>容器非常适合持续集成和持续交付（CI &#x2F; CD）工作流程，请考虑以下示例方案：</p><ul><li>您的开发人员在本地编写代码，并使用 Docker 容器与同事共享他们的工作。</li><li>他们使用 Docker 将其应用程序推送到测试环境中，并执行自动或手动测试。</li><li>当开发人员发现错误时，他们可以在开发环境中对其进行修复，然后将其重新部署到测试环境中，以进行测试和验证。</li><li>测试完成后，将修补程序推送给生产环境，就像将更新的镜像推送到生产环境一样简单。</li></ul><h4 id="2、响应式部署和扩展"><a href="#2、响应式部署和扩展" class="headerlink" title="2、响应式部署和扩展"></a>2、响应式部署和扩展</h4><p>​Docker 是基于容器的平台，允许高度可移植的工作负载。Docker 容器可以在开发人员的本机上，数据中心的物理或虚拟机上，云服务上或混合环境中运行。</p><p>Docker 的可移植性和轻量级的特性，还可以使您轻松地完成动态管理的工作负担，并根据业务需求指示，实时扩展或拆除应用程序和服务。</p><h4 id="3、在同一硬件上运行更多工作负载"><a href="#3、在同一硬件上运行更多工作负载" class="headerlink" title="3、在同一硬件上运行更多工作负载"></a>3、在同一硬件上运行更多工作负载</h4><p>​Docker 轻巧快速。它为基于虚拟机管理程序的虚拟机提供了可行、经济、高效的替代方案，因此您可以利用更多的计算能力来实现业务目标。Docker 非常适合于高密度环境以及中小型部署，而您可以用更少的资源做更多的事情。</p><h3 id="1-4-docker组织架构"><a href="#1-4-docker组织架构" class="headerlink" title="1.4 docker组织架构"></a>1.4 docker组织架构</h3><p>Docker 包括三个基本概念:</p><ul><li><strong>镜像（Image）</strong>：Docker 镜像（Image），就相当于是一个 root 文件系统。比如官方镜像 ubuntu:16.04 就包含了完整的一套 Ubuntu16.04 最小系统的 root 文件系统。</li><li><strong>容器（Container）</strong>：镜像（Image）和容器（Container）的关系，就像是面向对象程序设计中的类和实例一样，镜像是静态的定义，容器是镜像运行时的实体。容器可以被创建、启动、停止、删除、暂停等。</li><li><strong>仓库（Repository）</strong>：仓库可看成一个代码控制中心，用来保存镜像。</li></ul><p>Docker 使用客户端-服务器 (C&#x2F;S) 架构模式，使用远程API来管理和创建Docker容器。</p><p>Docker 容器通过 Docker 镜像来创建。</p><p>容器与镜像的关系类似于面向对象编程中的对象与类。</p><table><thead><tr><th align="left">Docker</th><th align="left">面向对象</th></tr></thead><tbody><tr><td align="left">容器</td><td align="left">对象</td></tr><tr><td align="left">镜像</td><td align="left">类</td></tr></tbody></table><p><img src="https://s2.loli.net/2023/02/22/Ge8JE9UcCTwI7zH.png" alt="img"></p><table><thead><tr><th align="left">概念</th><th align="left">说明</th></tr></thead><tbody><tr><td align="left">Docker 镜像(Images)</td><td align="left">Docker 镜像是用于创建 Docker 容器的模板，比如 Ubuntu 系统。</td></tr><tr><td align="left">Docker 容器(Container)</td><td align="left">容器是独立运行的一个或一组应用，是镜像运行时的实体。</td></tr><tr><td align="left">Docker 客户端(Client)</td><td align="left">Docker 客户端通过命令行或者其他工具使用 Docker SDK (<a href="https://docs.docker.com/develop/sdk/">https://docs.docker.com/develop/sdk/</a>) 与 Docker 的守护进程通信。</td></tr><tr><td align="left">Docker 主机(Host)</td><td align="left">一个物理或者虚拟的机器用于执行 Docker 守护进程和容器。</td></tr><tr><td align="left">Docker Registry</td><td align="left">Docker 仓库用来保存镜像，可以理解为代码控制中的代码仓库。Docker Hub(<a href="https://hub.docker.com/">https://hub.docker.com</a>) 提供了庞大的镜像集合供使用。一个 Docker Registry 中可以包含多个仓库（Repository）；每个仓库可以包含多个标签（Tag）；每个标签对应一个镜像。通常，一个仓库会包含同一个软件不同版本的镜像，而标签就常用于对应该软件的各个版本。我们可以通过 <strong>&lt;仓库名&gt;:&lt;标签&gt;</strong> 的格式来指定具体是这个软件哪个版本的镜像。如果不给出标签，将以 <strong>latest</strong> 作为默认标签。</td></tr><tr><td align="left">Docker Machine</td><td align="left">Docker Machine是一个简化Docker安装的命令行工具，通过一个简单的命令行即可在相应的平台上安装Docker，比如VirtualBox、 Digital Ocean、Microsoft Azure。</td></tr></tbody></table>]]></content>
+      
+      
+      <categories>
+          
+          <category> 云计算 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 云计算,docker </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>k8s搭建2</title>
       <link href="/posts/764d0a48.html"/>
       <url>/posts/764d0a48.html</url>
