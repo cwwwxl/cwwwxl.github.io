@@ -594,6 +594,13 @@
   </url>
   
   <url>
+    <loc>https://cwwwxl.top/tags/git/</loc>
+    <lastmod>2023-02-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://cwwwxl.top/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/</loc>
     <lastmod>2023-02-22</lastmod>
     <changefreq>weekly</changefreq>
@@ -615,13 +622,6 @@
   </url>
   
   <url>
-    <loc>https://cwwwxl.top/tags/git/</loc>
-    <lastmod>2023-02-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://cwwwxl.top/tags/ubuntu/</loc>
     <lastmod>2023-02-22</lastmod>
     <changefreq>weekly</changefreq>
@@ -637,6 +637,13 @@
   
   <url>
     <loc>https://cwwwxl.top/tags/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/</loc>
+    <lastmod>2023-02-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://cwwwxl.top/tags/python/</loc>
     <lastmod>2023-02-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -671,6 +678,13 @@
   </url>
   
   <url>
+    <loc>https://cwwwxl.top/tags/webase/</loc>
+    <lastmod>2023-02-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://cwwwxl.top/tags/Hadoop/</loc>
     <lastmod>2023-02-22</lastmod>
     <changefreq>weekly</changefreq>
@@ -692,13 +706,6 @@
   </url>
   
   <url>
-    <loc>https://cwwwxl.top/tags/webase/</loc>
-    <lastmod>2023-02-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://cwwwxl.top/tags/mysql/</loc>
     <lastmod>2023-02-22</lastmod>
     <changefreq>weekly</changefreq>
@@ -707,13 +714,6 @@
   
   <url>
     <loc>https://cwwwxl.top/tags/nosql/</loc>
-    <lastmod>2023-02-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://cwwwxl.top/tags/python/</loc>
     <lastmod>2023-02-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -729,6 +729,13 @@
   </url>
   
   <url>
+    <loc>https://cwwwxl.top/categories/git/</loc>
+    <lastmod>2023-02-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://cwwwxl.top/categories/Java%E9%9D%A2%E8%AF%95%E9%A2%98/</loc>
     <lastmod>2023-02-22</lastmod>
     <changefreq>weekly</changefreq>
@@ -737,13 +744,6 @@
   
   <url>
     <loc>https://cwwwxl.top/categories/Java/</loc>
-    <lastmod>2023-02-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://cwwwxl.top/categories/git/</loc>
     <lastmod>2023-02-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
