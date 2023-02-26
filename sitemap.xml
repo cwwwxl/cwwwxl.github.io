@@ -614,6 +614,13 @@
 
   
   <url>
+    <loc>https://cwwwxl.top/tags/Scala/</loc>
+    <lastmod>2023-02-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://cwwwxl.top/tags/%E4%BA%91%E8%AE%A1%E7%AE%97-docker/</loc>
     <lastmod>2023-02-26</lastmod>
     <changefreq>weekly</changefreq>
@@ -628,13 +635,6 @@
   </url>
   
   <url>
-    <loc>https://cwwwxl.top/tags/java/</loc>
-    <lastmod>2023-02-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://cwwwxl.top/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/</loc>
     <lastmod>2023-02-26</lastmod>
     <changefreq>weekly</changefreq>
@@ -642,7 +642,28 @@
   </url>
   
   <url>
+    <loc>https://cwwwxl.top/tags/java/</loc>
+    <lastmod>2023-02-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://cwwwxl.top/tags/jdk%E5%AE%89%E8%A3%85/</loc>
+    <lastmod>2023-02-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://cwwwxl.top/tags/python/</loc>
+    <lastmod>2023-02-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://cwwwxl.top/tags/%E7%88%AC%E8%99%AB/</loc>
     <lastmod>2023-02-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -670,20 +691,6 @@
   </url>
   
   <url>
-    <loc>https://cwwwxl.top/tags/python/</loc>
-    <lastmod>2023-02-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://cwwwxl.top/tags/%E7%88%AC%E8%99%AB/</loc>
-    <lastmod>2023-02-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://cwwwxl.top/tags/openstack/</loc>
     <lastmod>2023-02-26</lastmod>
     <changefreq>weekly</changefreq>
@@ -692,6 +699,13 @@
   
   <url>
     <loc>https://cwwwxl.top/tags/k8s/</loc>
+    <lastmod>2023-02-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://cwwwxl.top/tags/webase/</loc>
     <lastmod>2023-02-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -719,13 +733,6 @@
   </url>
   
   <url>
-    <loc>https://cwwwxl.top/tags/webase/</loc>
-    <lastmod>2023-02-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://cwwwxl.top/tags/MapReduce/</loc>
     <lastmod>2023-02-26</lastmod>
     <changefreq>weekly</changefreq>
@@ -746,14 +753,14 @@
     <priority>0.2</priority>
   </url>
   
+
+  
   <url>
-    <loc>https://cwwwxl.top/tags/Scala/</loc>
+    <loc>https://cwwwxl.top/categories/Scala/</loc>
     <lastmod>2023-02-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
-  
-
   
   <url>
     <loc>https://cwwwxl.top/categories/%E4%BA%91%E8%AE%A1%E7%AE%97/</loc>
@@ -770,13 +777,6 @@
   </url>
   
   <url>
-    <loc>https://cwwwxl.top/categories/Java/</loc>
-    <lastmod>2023-02-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://cwwwxl.top/categories/Java%E9%9D%A2%E8%AF%95%E9%A2%98/</loc>
     <lastmod>2023-02-26</lastmod>
     <changefreq>weekly</changefreq>
@@ -784,7 +784,7 @@
   </url>
   
   <url>
-    <loc>https://cwwwxl.top/categories/Linux/</loc>
+    <loc>https://cwwwxl.top/categories/Java/</loc>
     <lastmod>2023-02-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -798,7 +798,7 @@
   </url>
   
   <url>
-    <loc>https://cwwwxl.top/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/</loc>
+    <loc>https://cwwwxl.top/categories/Linux/</loc>
     <lastmod>2023-02-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -812,14 +812,14 @@
   </url>
   
   <url>
-    <loc>https://cwwwxl.top/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
+    <loc>https://cwwwxl.top/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/</loc>
     <lastmod>2023-02-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://cwwwxl.top/categories/Scala/</loc>
+    <loc>https://cwwwxl.top/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
     <lastmod>2023-02-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
