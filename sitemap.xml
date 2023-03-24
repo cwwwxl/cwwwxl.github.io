@@ -723,13 +723,6 @@
   </url>
   
   <url>
-    <loc>https://cwwwxl.top/tags/webase/</loc>
-    <lastmod>2023-03-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://cwwwxl.top/tags/HDFS/</loc>
     <lastmod>2023-03-24</lastmod>
     <changefreq>weekly</changefreq>
@@ -751,7 +744,21 @@
   </url>
   
   <url>
+    <loc>https://cwwwxl.top/tags/webase/</loc>
+    <lastmod>2023-03-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://cwwwxl.top/tags/MapReduce/</loc>
+    <lastmod>2023-03-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://cwwwxl.top/tags/Zookeeper/</loc>
     <lastmod>2023-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -766,13 +773,6 @@
   
   <url>
     <loc>https://cwwwxl.top/tags/nosql/</loc>
-    <lastmod>2023-03-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://cwwwxl.top/tags/Zookeeper/</loc>
     <lastmod>2023-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -830,14 +830,14 @@
   </url>
   
   <url>
-    <loc>https://cwwwxl.top/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/</loc>
+    <loc>https://cwwwxl.top/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/</loc>
     <lastmod>2023-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://cwwwxl.top/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/</loc>
+    <loc>https://cwwwxl.top/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/</loc>
     <lastmod>2023-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
