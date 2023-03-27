@@ -2,7 +2,43 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://cwwwxl.top/posts/3bb5ed61.html</loc>
+    
+    <lastmod>2023-03-27</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://cwwwxl.top/posts/5af44e45.html</loc>
+    
+    <lastmod>2023-03-27</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://cwwwxl.top/posts/bc1fb66d.html</loc>
+    
+    <lastmod>2023-03-27</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://cwwwxl.top/posts/40945b78.html</loc>
+    
+    <lastmod>2023-03-27</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://cwwwxl.top/posts/309d25ea.html</loc>
     
     <lastmod>2023-03-27</lastmod>
     
@@ -20,27 +56,18 @@
   </url>
   
   <url>
-    <loc>https://cwwwxl.top/posts/f9c30614.html</loc>
-    
-    <lastmod>2023-03-25</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://cwwwxl.top/posts/b4e8f16.html</loc>
     
-    <lastmod>2023-03-25</lastmod>
+    <lastmod>2023-03-27</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://cwwwxl.top/posts/3bb5ed61.html</loc>
+    <loc>https://cwwwxl.top/posts/f9c30614.html</loc>
     
-    <lastmod>2023-03-24</lastmod>
+    <lastmod>2023-03-27</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -59,15 +86,6 @@
     <loc>https://cwwwxl.top/posts/d0acfaca.html</loc>
     
     <lastmod>2023-03-19</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://cwwwxl.top/posts/309d25ea.html</loc>
-    
-    <lastmod>2023-03-18</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -461,15 +479,6 @@
   </url>
   
   <url>
-    <loc>https://cwwwxl.top/posts/bc1fb66d.html</loc>
-    
-    <lastmod>2023-01-26</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://cwwwxl.top/posts/70607de9.html</loc>
     
     <lastmod>2023-01-26</lastmod>
@@ -543,15 +552,6 @@
   
   <url>
     <loc>https://cwwwxl.top/posts/c93102b7.html</loc>
-    
-    <lastmod>2023-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://cwwwxl.top/posts/40945b78.html</loc>
     
     <lastmod>2023-01-23</lastmod>
     
@@ -812,6 +812,13 @@
     <priority>0.2</priority>
   </url>
   
+  <url>
+    <loc>https://cwwwxl.top/tags/Hadoop-hdfs/</loc>
+    <lastmod>2023-03-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
 
   
   <url>
@@ -879,6 +886,13 @@
   
   <url>
     <loc>https://cwwwxl.top/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
+    <lastmod>2023-03-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://cwwwxl.top/categories/Hadoop/</loc>
     <lastmod>2023-03-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
