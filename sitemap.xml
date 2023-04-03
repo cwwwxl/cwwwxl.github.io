@@ -686,6 +686,48 @@
 
   
   <url>
+    <loc>https://cwwwxl.top/tags/HDFS/</loc>
+    <lastmod>2023-04-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://cwwwxl.top/tags/Hadoop-hdfs/</loc>
+    <lastmod>2023-04-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://cwwwxl.top/tags/Hadoop/</loc>
+    <lastmod>2023-04-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://cwwwxl.top/tags/Zookeeper/</loc>
+    <lastmod>2023-04-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://cwwwxl.top/tags/MapReduce/</loc>
+    <lastmod>2023-04-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://cwwwxl.top/tags/Hive/</loc>
+    <lastmod>2023-04-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://cwwwxl.top/tags/Scala/</loc>
     <lastmod>2023-04-03</lastmod>
     <changefreq>weekly</changefreq>
@@ -707,7 +749,7 @@
   </url>
   
   <url>
-    <loc>https://cwwwxl.top/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/</loc>
+    <loc>https://cwwwxl.top/tags/jdk%E5%AE%89%E8%A3%85/</loc>
     <lastmod>2023-04-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -721,14 +763,14 @@
   </url>
   
   <url>
-    <loc>https://cwwwxl.top/tags/jdk%E5%AE%89%E8%A3%85/</loc>
+    <loc>https://cwwwxl.top/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/</loc>
     <lastmod>2023-04-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://cwwwxl.top/tags/ubuntu/</loc>
+    <loc>https://cwwwxl.top/tags/%E8%AF%AD%E6%B3%95%E7%B3%96/</loc>
     <lastmod>2023-04-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -736,6 +778,13 @@
   
   <url>
     <loc>https://cwwwxl.top/tags/Linux/</loc>
+    <lastmod>2023-04-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://cwwwxl.top/tags/ubuntu/</loc>
     <lastmod>2023-04-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -763,7 +812,7 @@
   </url>
   
   <url>
-    <loc>https://cwwwxl.top/tags/openstack/</loc>
+    <loc>https://cwwwxl.top/tags/Spark/</loc>
     <lastmod>2023-04-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -777,42 +826,7 @@
   </url>
   
   <url>
-    <loc>https://cwwwxl.top/tags/HDFS/</loc>
-    <lastmod>2023-04-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://cwwwxl.top/tags/Hadoop/</loc>
-    <lastmod>2023-04-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://cwwwxl.top/tags/Hive/</loc>
-    <lastmod>2023-04-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://cwwwxl.top/tags/webase/</loc>
-    <lastmod>2023-04-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://cwwwxl.top/tags/MapReduce/</loc>
-    <lastmod>2023-04-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://cwwwxl.top/tags/Zookeeper/</loc>
+    <loc>https://cwwwxl.top/tags/openstack/</loc>
     <lastmod>2023-04-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -826,34 +840,34 @@
   </url>
   
   <url>
+    <loc>https://cwwwxl.top/tags/webase/</loc>
+    <lastmod>2023-04-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://cwwwxl.top/tags/nosql/</loc>
     <lastmod>2023-04-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
-  <url>
-    <loc>https://cwwwxl.top/tags/Spark/</loc>
-    <lastmod>2023-04-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://cwwwxl.top/tags/Hadoop-hdfs/</loc>
-    <lastmod>2023-04-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://cwwwxl.top/tags/%E8%AF%AD%E6%B3%95%E7%B3%96/</loc>
-    <lastmod>2023-04-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
 
+  
+  <url>
+    <loc>https://cwwwxl.top/categories/Hadoop/</loc>
+    <lastmod>2023-04-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://cwwwxl.top/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/</loc>
+    <lastmod>2023-04-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
   
   <url>
     <loc>https://cwwwxl.top/categories/Scala/</loc>
@@ -877,14 +891,14 @@
   </url>
   
   <url>
-    <loc>https://cwwwxl.top/categories/Java%E9%9D%A2%E8%AF%95%E9%A2%98/</loc>
+    <loc>https://cwwwxl.top/categories/Java/</loc>
     <lastmod>2023-04-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://cwwwxl.top/categories/Java/</loc>
+    <loc>https://cwwwxl.top/categories/Java%E9%9D%A2%E8%AF%95%E9%A2%98/</loc>
     <lastmod>2023-04-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -905,14 +919,7 @@
   </url>
   
   <url>
-    <loc>https://cwwwxl.top/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/</loc>
-    <lastmod>2023-04-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://cwwwxl.top/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/</loc>
+    <loc>https://cwwwxl.top/categories/Spark/</loc>
     <lastmod>2023-04-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -926,14 +933,7 @@
   </url>
   
   <url>
-    <loc>https://cwwwxl.top/categories/Hadoop/</loc>
-    <lastmod>2023-04-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://cwwwxl.top/categories/Spark/</loc>
+    <loc>https://cwwwxl.top/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/</loc>
     <lastmod>2023-04-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
