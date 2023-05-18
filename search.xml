@@ -4,6 +4,56 @@
   
     
     <entry>
+      <title>linux安装node</title>
+      <link href="/posts/3dad8e04.html"/>
+      <url>/posts/3dad8e04.html</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="linux安装node"><a href="#linux安装node" class="headerlink" title="linux安装node"></a>linux安装node</h1><h4 id="1、下载安装包"><a href="#1、下载安装包" class="headerlink" title="1、下载安装包"></a>1、下载安装包</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget http://nodejs.org/dist/v0.10.25/node-v0.10.25.tar.gz</span><br><span class="line">版本根据自己需要进行选择。</span><br></pre></td></tr></table></figure><h4 id="2、安装gcc"><a href="#2、安装gcc" class="headerlink" title="2、安装gcc"></a>2、安装gcc</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install gcc openssl-devel gcc-c++ compat-gcc-34 compat-gcc-34-c++</span><br></pre></td></tr></table></figure><h4 id="3、解压node"><a href="#3、解压node" class="headerlink" title="3、解压node"></a>3、解压node</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tar -xf node-v0.10.25.tar.gz</span><br><span class="line">3、进入node目录</span><br><span class="line">cd node-v0.10.25</span><br></pre></td></tr></table></figure><h4 id="4、配置目录"><a href="#4、配置目录" class="headerlink" title="4、配置目录"></a>4、配置目录</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./configure --prefix=/usr/local/node</span><br></pre></td></tr></table></figure><h4 id="5、安装npm"><a href="#5、安装npm" class="headerlink" title="5、安装npm"></a>5、安装npm</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure><h4 id="6、加入链接"><a href="#6、加入链接" class="headerlink" title="6、加入链接"></a>6、加入链接</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s /usr/local/node/bin/* /usr/sbin/</span><br></pre></td></tr></table></figure><h4 id="7、测试时候安装成功"><a href="#7、测试时候安装成功" class="headerlink" title="7、测试时候安装成功"></a>7、测试时候安装成功</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">node -v</span><br><span class="line">npm -v</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> node </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>AgentGPT 最新部署教程！</title>
+      <link href="/posts/1f42c3fa.html"/>
+      <url>/posts/1f42c3fa.html</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="AgentGPT-最新部署教程！"><a href="#AgentGPT-最新部署教程！" class="headerlink" title="AgentGPT 最新部署教程！"></a>AgentGPT 最新部署教程！</h1><p><a href="https://www.freedidi.com/wp-content/uploads/2023/04/2023-04-26-224232.png"><img src="https://s2.loli.net/2023/05/18/EsreW8UmSwjMP4f.png" alt="img"></a></p><h4 id="1-首先你需要准备一台VPS，没有的话可以自己去【-搞一台-】，白菜价，性能强劲而且可玩性非常高！"><a href="#1-首先你需要准备一台VPS，没有的话可以自己去【-搞一台-】，白菜价，性能强劲而且可玩性非常高！" class="headerlink" title="1.首先你需要准备一台VPS，没有的话可以自己去【**搞一台**】，白菜价，性能强劲而且可玩性非常高！"></a>1.首先你需要准备一台VPS，没有的话可以自己去【**<a href="https://www.vultr.com/?ref=7045490">搞一台</a>**】，白菜价，性能强劲而且可玩性非常高！</h4><p> 然后通过SSH连接工具【<a href="https://www.putty.org/">Putty</a>】连接进去以后，依次执行以下命令：</p><p> 如果没有安装Curl的话，我们需要提前安装。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install -y curl #Debian</span><br></pre></td></tr></table></figure><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install -y curl #CentOS</span><br></pre></td></tr></table></figure><h4 id="2-通过Docker一键安装脚本进行部署："><a href="#2-通过Docker一键安装脚本进行部署：" class="headerlink" title="2.通过Docker一键安装脚本进行部署："></a>2.通过Docker一键安装脚本进行部署：</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash &lt;(curl -sSL https://cdn.jsdelivr.net/gh/SuperManito/LinuxMirrors@main/DockerInstallation.sh)</span><br></pre></td></tr></table></figure><p>里面选择DOCKER CE源渠道，有八个可以选择。</p><p>包括我们可以选择Docker Engine、Compose等，然后就自动一键安装。</p><h4 id="3-下载并安装AgentGPT开源程序：-【-GitHub项目-】"><a href="#3-下载并安装AgentGPT开源程序：-【-GitHub项目-】" class="headerlink" title="3.下载并安装AgentGPT开源程序： 【**GitHub项目**】"></a>3.下载并安装AgentGPT开源程序： 【**<a href="https://github.com/reworkd/AgentGPT">GitHub项目</a>**】</h4><p>先安装下Git：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install git #Centos</span><br></pre></td></tr></table></figure><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install git #Debian</span><br></pre></td></tr></table></figure><h4 id="4-下载-AgentGPT-源码："><a href="#4-下载-AgentGPT-源码：" class="headerlink" title="4.下载 AgentGPT 源码："></a>4.下载 AgentGPT 源码：</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/reworkd/AgentGPT.git</span><br></pre></td></tr></table></figure><h4 id="5-下载后执行下面安装命令即可"><a href="#5-下载后执行下面安装命令即可" class="headerlink" title="5.下载后执行下面安装命令即可:"></a>5.下载后执行下面安装命令即可:</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd AgentGPT</span><br><span class="line"></span><br><span class="line">./setup.sh --docker</span><br></pre></td></tr></table></figure><h4 id="6-获取自己的Open-AI-的密钥：【-点击前往-】"><a href="#6-获取自己的Open-AI-的密钥：【-点击前往-】" class="headerlink" title="6.获取自己的Open AI 的密钥：【**点击前往**】"></a>6.获取自己的Open AI 的密钥：【**<a href="https://platform.openai.com/account/api-keys">点击前往</a>**】</h4><h4 id="7-安装完成以后，你只需在浏览器上打开：http-xxx-xx-xx-xx-3000"><a href="#7-安装完成以后，你只需在浏览器上打开：http-xxx-xx-xx-xx-3000" class="headerlink" title="7.安装完成以后，你只需在浏览器上打开：http:xxx.xx.xx.xx:3000"></a>7.安装完成以后，你只需在浏览器上打开：http:xxx.xx.xx.xx:3000</h4>]]></content>
+      
+      
+      <categories>
+          
+          <category> AgentGPT </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> AgentGPT </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>paddlepaddle</title>
       <link href="/posts/e9f64d9f.html"/>
       <url>/posts/e9f64d9f.html</url>
