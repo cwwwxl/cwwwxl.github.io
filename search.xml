@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>9.随机请求头</title>
+      <link href="/posts/95b5ca1f.html"/>
+      <url>/posts/95b5ca1f.html</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> fake_useragent <span class="keyword">import</span> UserAgent   <span class="comment"># 下载：pip install fake-useragent</span></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">ua = UserAgent()        <span class="comment"># 实例化，需要联网但是网站不太稳定-可能耗时会长一些</span></span><br><span class="line"><span class="built_in">print</span>(ua.random)  <span class="comment"># 随机产生</span></span><br><span class="line">headers = &#123;</span><br><span class="line">    <span class="string">&#x27;User-Agent&#x27;</span>: ua.random    <span class="comment"># 伪装</span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="built_in">print</span>(headers)</span><br><span class="line"><span class="comment"># 请求</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    url = <span class="string">&#x27;https://www.baidu.com/&#x27;</span></span><br><span class="line">    response = requests.get(url, headers=headers ,proxies=&#123;<span class="string">&quot;http&quot;</span>:<span class="string">&quot;117.136.27.43&quot;</span>&#125;)</span><br><span class="line">    <span class="built_in">print</span>(response.status_code)</span><br><span class="line"></span><br></pre></td></tr></table></figure><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">proxies = &#123;</span><br><span class="line">    <span class="string">&quot;http&quot;</span>: <span class="string">&quot;http://%(user)s:%(pwd)s@%(proxy)s/&quot;</span> % &#123;<span class="string">&quot;user&quot;</span>: <span class="string">&quot;t18552632261285&quot;</span>, <span class="string">&quot;pwd&quot;</span>: <span class="string">&quot;bjnrabj3&quot;</span>, <span class="string">&quot;proxy&quot;</span>: <span class="string">&quot;a892.kdltps.com:15818&quot;</span>&#125;,</span><br><span class="line">    <span class="comment"># &quot;https&quot;: &quot;http://%(user)s:%(pwd)s@%(proxy)s/&quot; % &#123;&quot;user&quot;: &quot;t18637964583060&quot;, &quot;pwd&quot;: &quot;7wu91jnb&quot;, &quot;proxy&quot;: &quot;s1000.kdltps.com:15818&quot;&#125;,</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line">resp = requests.get(url, headers=headers,proxies=proxies)</span><br><span class="line"><span class="built_in">print</span>(resp.status_code)</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 爬虫 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 爬虫 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>4.Scrapy抓取全网站数据</title>
       <link href="/posts/66b6708f.html"/>
       <url>/posts/66b6708f.html</url>
