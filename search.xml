@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Go Gin安装解决国内go get 方式安装超时问题</title>
+      <link href="/posts/75c1662c.html"/>
+      <url>/posts/75c1662c.html</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h2 id="Go-Gin安装解决国内go-get-方式安装超时问题"><a href="#Go-Gin安装解决国内go-get-方式安装超时问题" class="headerlink" title="Go Gin安装解决国内go get 方式安装超时问题"></a>Go Gin安装解决国内go get 方式安装超时问题</h2><p>在国内直接用官网推荐的下面这个命令大概率是安装不成功的。</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">go</span> get -u github.com/gin-gonic/gin</span><br></pre></td></tr></table></figure><p>这时可以在你的项目目录下执行下面几个命令：</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">go</span> env -w GO111MODULE=on </span><br><span class="line"><span class="keyword">go</span> env -w GOPROXY=https:<span class="comment">//goproxy.cn,direct</span></span><br><span class="line"><span class="keyword">go</span> mod init YourProjectName</span><br><span class="line"><span class="keyword">go</span> get -u github.com/gin-gonic/gin</span><br></pre></td></tr></table></figure><p>这样就能将 gin以module的方式安装到你的项目的Lib里面了。</p><p>如果执行完上面的命令没报错，但在goland里 <code>import gin</code>时，像下面一样飘红：</p><p><img src="https://s2.loli.net/2023/07/28/aqzoBNxO2Hw15Xr.webp" alt="img"></p><p>需要把下面这个Enable Go Modules integration给勾选上：</p><p><img src="https://s2.loli.net/2023/07/28/aIpmStURLgHZwCq.webp" alt="img"></p><p>再运行就可以正常起来了：</p><p><img src="https://s2.loli.net/2023/07/28/8ahORNPFyVTJKHb.webp" alt="img"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> golang </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> go </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>00-golang介绍</title>
       <link href="/posts/38aa84eb.html"/>
       <url>/posts/38aa84eb.html</url>
